@@ -1,0 +1,2 @@
+If a tasks is not completed and not deleted it will appear in  the next weeks to-do
+Or maybe if pssible why not we notify the user at met night through email and allow them to either carry it over or just leave it as it is.
