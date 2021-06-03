@@ -35,6 +35,9 @@ nav {
   height: 95vh;
 }
 
+.manip-task {
+  margin: 0 5px;
+}
 .modal-footer {
   position: absolute;
   bottom: 10px;

@@ -8,7 +8,7 @@ const Task = () => {
         <div className="secondary-content">
           <a
             href="#!"
-            className="tooltipped"
+            className="tooltipped manip-task"
             data-position="left"
             data-tooltip="Done"
           >
@@ -16,7 +16,7 @@ const Task = () => {
           </a>
           <a
             href="#!"
-            className="tooltipped"
+            className="tooltipped manip-task"
             data-position="top"
             data-tooltip="Cancel"
           >
@@ -24,7 +24,7 @@ const Task = () => {
           </a>
           <a
             href="#!"
-            className="tooltipped"
+            className="tooltipped manip-task"
             data-position="top"
             data-tooltip="Edit"
           >
@@ -32,7 +32,7 @@ const Task = () => {
           </a>
           <a
             href="#!"
-            className="tooltipped"
+            className="tooltipped manip-task"
             data-position="right"
             data-tooltip="Delete"
           >
