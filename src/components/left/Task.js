@@ -2,9 +2,9 @@ import React from "react";
 
 const Task = () => {
   return (
-    <li class="collection-item ">
+    <li class="collection-item done">
       <div>
-        Change Wifi pass
+        <b>6:00PM </b> Change Wifi pass
         <div className="secondary-content">
           <a
             href="#!"

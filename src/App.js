@@ -5,7 +5,7 @@ import "./App.css";
 import Navbar from "./components/layout/Navbar";
 import Main from "./containers/Main";
 import AddTask from "./components/layout/AddTask";
-
+import TaskState from "./context/TaskState";
 function App() {
   useEffect(() => {
     M.AutoInit();
@@ -13,8 +13,10 @@ function App() {
   return (
     <Fragment>
       <Navbar />
-      <Main />
-      <AddTask />
+      <TaskState>
+        <Main />
+        <AddTask />
+      </TaskState>
     </Fragment>
   );
 }

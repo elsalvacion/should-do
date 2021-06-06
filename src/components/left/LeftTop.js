@@ -7,7 +7,7 @@ const LeftTop = () => {
         <input
           id="search"
           type="text"
-          placeholder="Filter task by title or description ..."
+          placeholder="Filter task by title or time or status ..."
         />
       </div>
     </div>

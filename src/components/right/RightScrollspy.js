@@ -1,43 +1,24 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
+import M from "materialize-css/dist/js/materialize.min";
 
 const RightScrollspy = () => {
   return (
     <Fragment>
-      <div className="col hide-on-small-only m3 l2">
+      <div className="col hide-on-small-only m3 l2 spy">
         <ul className="section table-of-contents">
           <li>
             <a href="#sun" className="scroll-link">
-              Sun
+              Yesterday
             </a>
           </li>
           <li>
             <a href="#mon" className="scroll-link">
-              Mon
+              Today
             </a>
           </li>
           <li>
             <a href="#tue" className="scroll-link">
-              Tue
-            </a>
-          </li>
-          <li>
-            <a href="#wed" className="scroll-link">
-              Wed
-            </a>
-          </li>
-          <li>
-            <a href="#thu" className="scroll-link">
-              Thu
-            </a>
-          </li>
-          <li>
-            <a href="#fri" className="scroll-link">
-              Fri
-            </a>
-          </li>
-          <li>
-            <a href="#sat" className="scroll-link">
-              Sat
+              Tomorrow
             </a>
           </li>
         </ul>
