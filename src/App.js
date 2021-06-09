@@ -9,7 +9,12 @@ import TaskState from "./context/TaskState";
 function App() {
   useEffect(() => {
     M.AutoInit();
+    var select = document.querySelectorAll("select");
+    var selectInst = M.FormSelect.init(select);
+    // var collapse = document.querySelectorAll(".collapsible");
+    // var collapseInst = M.Collapsible.init(collapse);
   });
+
   return (
     <Fragment>
       <Navbar />

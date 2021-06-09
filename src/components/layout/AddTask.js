@@ -1,9 +1,64 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState, useContext, useEffect } from "react";
+import AddTaskForm from "../form/AddTaskForm";
+import TaskContext from "../../context/taskContext";
 
 const AddTask = () => {
+  const taskContext = useContext(TaskContext);
+  const { createTask, toEdit, editTask, clearEdit } = taskContext;
+
+  const [task, setTask] = useState({
+    task_name: "",
+    day: "",
+    time: "",
+  });
+
+  useEffect(() => {
+    if (toEdit) {
+      setTask(toEdit);
+    }
+  }, [taskContext]);
+
+  const addTask = () => {
+    const data = {
+      id: Math.random(),
+      ...task,
+      status: "undone",
+      current_date: new Date(),
+    };
+
+    createTask(data, task.day);
+
+    resetStates();
+  };
+
+  const changeTask = () => {
+    editTask(task);
+    clearEdit();
+    resetStates();
+  };
+
+  const clearAll = () => {
+    clearEdit();
+    resetStates();
+  };
+
+  const resetStates = () => {
+    setTask({
+      time: "",
+      task_name: "",
+    });
+  };
+
+  const handleChange = (e) => {
+    setTask({
+      ...task,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   return (
     <Fragment>
-      <div class="fixed-action-btn">
+      <div className="fixed-action-btn">
         <a
           href="#!"
           className="btn-floating btn-large waves-effect waves-light teal darken-4 tooltipped modal-trigger"
@@ -18,31 +73,14 @@ const AddTask = () => {
         <div className="modal-content">
           <h4 className="center">Add a To-DO</h4>
           <div className="row">
-            <div className="input-field col s12">
-              <label htmlFor="task_name" className="dark-text">
-                Summarize Task (Max-Length: 50 Characters)
-              </label>
-              <input
-                id="task_name"
-                name="task_name"
-                type="text"
-                maxLength="50"
-              />
-            </div>
-            <div className="col s12">
-              <label htmlFor="date">Pick a Date</label>
-              <input type="text" class="datepicker" name="date" id="date" />
-            </div>
-            <div className="col s12">
-              <label htmlFor="time">Pick a Time</label>
-              <input type="text" class="timepicker" name="time" id="time" />
-            </div>
+            <AddTaskForm task={task} handleChange={handleChange} />
             <div className="col s12">
               <a
                 href="#!"
                 className="modal-close waves-effect waves-green btn-flat teal darken-4 white-text modal-submit"
+                onClick={toEdit ? changeTask : addTask}
               >
-                Add
+                {toEdit ? "Update" : "Add"}
               </a>
             </div>
           </div>
@@ -51,6 +89,7 @@ const AddTask = () => {
           <a
             href="#!"
             className="modal-close waves-effect waves-green btn-flat red white-text modal-btn"
+            onClick={clearAll}
           >
             Close
           </a>

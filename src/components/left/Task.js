@@ -1,16 +1,19 @@
 import React from "react";
 
-const Task = () => {
+const Task = (props) => {
+  const { task, changeToDone, delTask, taskEdit } = props;
+  const { status, task_name, id, time } = task;
   return (
-    <li class="collection-item done">
+    <div className={`collection-item ${status}`}>
       <div>
-        <b>6:00PM </b> Change Wifi pass
+        <b>{time} </b> {task_name}
         <div className="secondary-content">
           <a
             href="#!"
             className="tooltipped manip-task"
             data-position="left"
             data-tooltip="Done"
+            onClick={() => changeToDone(task, "done")}
           >
             <i className="material-icons green-text">check</i>
           </a>
@@ -19,14 +22,17 @@ const Task = () => {
             className="tooltipped manip-task"
             data-position="top"
             data-tooltip="Cancel"
+            onClick={() => changeToDone(task, "undone")}
           >
             <i className="material-icons red-text">clear</i>
           </a>
           <a
             href="#!"
-            className="tooltipped manip-task"
+            className="tooltipped manip-task modal-trigger"
             data-position="top"
             data-tooltip="Edit"
+            data-target="add-task"
+            onClick={() => taskEdit(task)}
           >
             <i className="material-icons grey-text">edit</i>
           </a>
@@ -35,12 +41,13 @@ const Task = () => {
             className="tooltipped manip-task"
             data-position="right"
             data-tooltip="Delete"
+            onClick={() => delTask(id)}
           >
             <i className="material-icons red-text">delete</i>
           </a>
         </div>
       </div>
-    </li>
+    </div>
   );
 };
 

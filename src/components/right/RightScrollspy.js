@@ -1,5 +1,4 @@
-import React, { Fragment, useEffect } from "react";
-import M from "materialize-css/dist/js/materialize.min";
+import React, { Fragment } from "react";
 
 const RightScrollspy = () => {
   return (

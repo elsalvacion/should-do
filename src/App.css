@@ -53,19 +53,16 @@ nav {
   display: block;
   margin: auto;
 }
-
-#add-task {
-  width: 90vw;
-  height: 95vh;
+.modal {
+  height: 95vh !important;
+  width: 90vh !important;
+  margin: auto !important;
 }
-
+.modal-content {
+  padding: 20px !important;
+}
 .manip-task {
   margin: 0 5px;
-}
-.modal-footer {
-  position: absolute;
-  bottom: 10px;
-  right: 20px;
 }
 
 label {
@@ -101,7 +98,7 @@ label {
   border-left: 3px solid #4caf50;
 }
 
-.cancel {
+.cancelled {
   border: 1px solid #f44336;
   border-left: 3px solid #f44336;
 }
@@ -117,7 +114,7 @@ label {
   color: #004d40;
 }
 
-.cancel-circle {
+.cancelled-circle {
   color: #f44336;
 }
 
