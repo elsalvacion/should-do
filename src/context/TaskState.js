@@ -12,10 +12,13 @@ import {
   FETCH_OTHER_TASK,
   CHANGE_TASK,
   DELETE_TASK,
+  GET_TASK,
   CHANGE_STATUS,
   EDIT_TASK,
   CLEAR_EDIT,
 } from "./types";
+
+import axios from "axios";
 
 const TaskState = (props) => {
   const initState = {
@@ -31,18 +34,47 @@ const TaskState = (props) => {
   const [state, action] = useReducer(taskReducer, initState);
 
   // Create a new task
-  const createTask = (data, day = "today") => {
-    setLoading();
-    if (day === "today") {
+  const createTask = async (data, day = "today") => {
+    try {
+      setLoading();
+      if (day === "today") {
+        axios.post("/today", data, {
+          "Content-Type": "application/json",
+        });
+
+        action({
+          name: SET_TODAY,
+          value: data,
+        });
+      }
+      if (day === "tomorrow") {
+        axios.post("/today", data, {
+          "Content-Type": "application/json",
+        });
+
+        action({
+          name: SET_TOMORROW,
+          value: data,
+        });
+      }
+    } catch (err) {
       action({
-        name: SET_TODAY,
-        value: data,
+        name: SET_ERRORS,
       });
     }
-    if (day === "tomorrow") {
+  };
+
+  const getTasks = async () => {
+    try {
+      const res = axios.get("/today");
+      console.log(res.data);
       action({
-        name: SET_TOMORROW,
-        value: data,
+        name: GET_TODAY,
+        value: res.data,
+      });
+    } catch (err) {
+      action({
+        name: SET_ERRORS,
       });
     }
   };
@@ -57,18 +89,36 @@ const TaskState = (props) => {
     });
   };
 
-  const deleteTask = (id) => {
-    setLoading();
-    action({
-      name: DELETE_TASK,
-      value: id,
-    });
+  const deleteTask = async (id) => {
+    try {
+      setLoading();
+      await axios.delete(`/today/${id}`);
+      action({
+        name: DELETE_TASK,
+        value: id,
+      });
+    } catch (err) {
+      console.log(err);
+      action({
+        name: SET_ERRORS,
+      });
+    }
   };
-  const editTask = (task) => {
-    action({
-      name: EDIT_TASK,
-      value: task,
-    });
+  const editTask = async (task) => {
+    try {
+      await axios.put(`/today/${task.id}`, task, {
+        "Content-Type": "application/json",
+      });
+      action({
+        name: EDIT_TASK,
+        value: task,
+      });
+    } catch (err) {
+      console.log(err);
+      action({
+        name: SET_ERRORS,
+      });
+    }
   };
 
   const setToEdit = (task) => {
@@ -108,6 +158,7 @@ const TaskState = (props) => {
         changeStatus,
         deleteTask,
         editTask,
+        getTasks,
         setToEdit,
         clearEdit,
       }}

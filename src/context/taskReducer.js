@@ -10,6 +10,7 @@ import {
   FETCH_OTHER_TASK,
   CHANGE_TASK,
   DELETE_TASK,
+  GET_TASK,
   CHANGE_STATUS,
   EDIT_TASK,
 } from "./types";
@@ -24,6 +25,13 @@ const taskReducer = (state, action) => {
         errors: false,
       };
 
+    case GET_TODAY:
+      return {
+        ...state,
+        today: [action.value],
+        loading: false,
+        errors: false,
+      };
     case CHANGE_STATUS:
       return {
         ...state,
@@ -74,6 +82,7 @@ const taskReducer = (state, action) => {
       return {
         ...state,
         errors: true,
+        loading: false,
       };
     default:
       return state;

@@ -14,6 +14,8 @@ export const FETCH_OTHER_TASK = "FETCH_OTHER_TASK";
 
 export const EDIT_TASK = "EDIT_TASK";
 
+export const GET_TASK = "GET_TASK";
+
 export const SET_EDIT = "SET_EDIT";
 
 export const CLEAR_EDIT = "CLEAR_EDIT";

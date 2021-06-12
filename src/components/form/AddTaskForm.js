@@ -22,7 +22,7 @@ const AddTaskForm = (props) => {
       </div>
       <div className="input-field col s12">
         <select name="day" value={day} onChange={(e) => handleChange(e)}>
-          <option value="" disabled selected>
+          <option value="" disabled>
             Choose a day
           </option>
           <option value="today">Today</option>
@@ -37,6 +37,7 @@ const AddTaskForm = (props) => {
           className="timepicker"
           value={time}
           onSelect={(e) => handleChange(e)}
+          onChange={(e) => handleChange(e)}
           name="time"
           id="time"
         />

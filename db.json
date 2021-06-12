@@ -1,0 +1,44 @@
+{
+  "today": [
+    {
+      "id": 0.5995634244802017,
+      "task_name": "Hey",
+      "day": "today",
+      "time": "11:58 PM",
+      "status": "undone",
+      "current_date": "2021-06-11T15:58:44.049Z"
+    },
+    {
+      "id": 0.9478956641308807,
+      "time": "06:59 PM",
+      "task_name": "Come for fun",
+      "status": "undone",
+      "current_date": "2021-06-11T15:59:29.389Z"
+    },
+    {
+      "id": 0.7882034341204316,
+      "time": "05:59 PM",
+      "task_name": "Go to sleep",
+      "status": "undone",
+      "current_date": "2021-06-11T16:00:02.075Z"
+    },
+    {
+      "id": 0.9742077300530314,
+      "time": "08:00 AM",
+      "task_name": "Code React",
+      "status": "undone",
+      "current_date": "2021-06-11T16:00:15.719Z"
+    },
+    {
+      "id": 0.3113145211449748,
+      "task_name": "Hey",
+      "day": "today",
+      "time": "08:44 PM",
+      "status": "undone",
+      "current_date": "2021-06-12T13:44:29.026Z"
+    }
+  ],
+  "tomorrow": [],
+  "history": [],
+  "yesterday": []
+}

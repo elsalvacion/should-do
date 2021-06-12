@@ -16,7 +16,7 @@ const AddTask = () => {
     if (toEdit) {
       setTask(toEdit);
     }
-  }, [taskContext]);
+  }, [taskContext, toEdit]);
 
   const addTask = () => {
     const data = {

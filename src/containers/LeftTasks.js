@@ -1,29 +1,37 @@
-import React, { Fragment, useContext } from "react";
+import React, { Fragment, useContext, useEffect } from "react";
 import Indicators from "../components/left/Indicators";
 import Task from "../components/left/Task";
+import TaskDay from "../components/left/TaskDay";
 import TaskContext from "../context/taskContext";
 
 const LeftTasks = () => {
   const taskContext = useContext(TaskContext);
-  const { today, changeStatus, deleteTask, setToEdit } = taskContext;
+  const { today, changeStatus, deleteTask, setToEdit, getTasks } = taskContext;
+
+  // useEffect(() => {
+  //   getTasks();
+  // }, [taskContext]);
+
   let completed = [];
   let uncompleted = [];
   let cancelled = [];
   let elapsed = [];
 
-  if (today.length > 0) {
-    today.forEach((task) => {
-      if (task.status === "undone") {
-        uncompleted.push(task);
-      } else if (task.status === "done") {
-        completed.push(task);
-      } else if (task.status === "cancelled") {
-        cancelled.push(task);
-      } else if (task.status === "elapsed") {
-        elapsed.push(task);
-      }
-    });
-  }
+  // if (today.length > 0) {
+  //   today.map((task) => {
+  //     if (task.status) {
+  //       if (task.status === "undone") {
+  //         uncompleted.push(task);
+  //       } else if (task.status === "done") {
+  //         completed.push(task);
+  //       } else if (task.status === "cancelled") {
+  //         cancelled.push(task);
+  //       } else if (task.status === "elapsed") {
+  //         elapsed.push(task);
+  //       }
+  //     }
+  //   });
+  // }
 
   if (today.length === 0) {
     return (
@@ -37,17 +45,7 @@ const LeftTasks = () => {
   return (
     <div className="tasks">
       <Indicators />
-      <div className="task-head">
-        <h4 className="heading">Today</h4>
-        <a
-          href="#!"
-          className="btn-floating btn-large waves-effect waves-light teal darken-4 tooltipped"
-          data-position="top"
-          data-tooltip="History"
-        >
-          <i className="medium material-icons">history</i>
-        </a>
-      </div>
+      <TaskDay day="Today" />
       <ul className="collapsible popout">
         {uncompleted.length > 0 && (
           <li>
@@ -70,7 +68,7 @@ const LeftTasks = () => {
           </li>
         )}
 
-        {completed.length > 0 && (
+        {/* {completed.length > 0 && (
           <li>
             <div className="collapsible-header">
               <i className="material-icons">check</i>Completed Tasks
@@ -89,7 +87,7 @@ const LeftTasks = () => {
               </div>
             </div>
           </li>
-        )}
+        )} */}
       </ul>
     </div>
   );
