@@ -1,6 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
+import M from "materialize-css/dist/js/materialize.min";
 
 const Task = (props) => {
+  useEffect(() => {
+    M.Collapsible.init(document.querySelectorAll(".collapsible"), {
+      accordion: true,
+    });
+  });
   const { task, changeToDone, delTask, taskEdit } = props;
   const { status, task_name, id, time } = task;
   return (

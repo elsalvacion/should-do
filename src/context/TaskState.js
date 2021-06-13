@@ -16,6 +16,8 @@ import {
   CHANGE_STATUS,
   EDIT_TASK,
   CLEAR_EDIT,
+  SET_FILTER,
+  CLEAR_FILTER,
 } from "./types";
 
 import axios from "axios";
@@ -25,18 +27,73 @@ const TaskState = (props) => {
     loading: false,
     errors: false,
     today: [],
-    yesterday: [],
-    tomorrow: [],
-    history: [],
+    yesterday: null,
+    tomorrow: null,
+    history: null,
     toEdit: null,
+    filtered: null,
   };
 
   const [state, action] = useReducer(taskReducer, initState);
+
+  // Credit to Stackoverflow
+  const get24HrsFrmAMPM = (timeStr) => {
+    if (timeStr && timeStr.indexOf(" ") !== -1 && timeStr.indexOf(":") !== -1) {
+      var hrs = 0;
+      var tempAry = timeStr.split(" ");
+      var hrsMinAry = tempAry[0].split(":");
+      hrs = parseInt(hrsMinAry[0], 10);
+      if ((tempAry[1] === "AM" || tempAry[1] === "am") && hrs === 12) {
+        hrs = 0;
+      } else if ((tempAry[1] === "PM" || tempAry[1] === "pm") && hrs != 12) {
+        hrs += 12;
+      }
+      return (
+        ("0" + hrs).slice(-2) +
+        ":" +
+        ("0" + parseInt(hrsMinAry[1], 10)).slice(-2)
+      );
+    } else {
+      return null;
+    }
+  };
+
+  const calcElapsed = (time) => {
+    const hrs = new Date().getHours();
+
+    const mins = new Date().getMinutes();
+
+    const timeStr = get24HrsFrmAMPM(time);
+
+    const timeSplit = timeStr.split(":");
+
+    if (Number(hrs) > Number(timeSplit[0])) {
+      return "elapsed";
+    } else {
+      if (
+        Number(hrs) === Number(timeSplit[0]) &&
+        Number(mins) > Number(timeSplit[1])
+      ) {
+        console.log("Time has elapsed");
+        return "elapsed";
+      } else {
+        console.log("Time didnt elapsed");
+        return false;
+      }
+    }
+  };
 
   // Create a new task
   const createTask = async (data, day = "today") => {
     try {
       setLoading();
+
+      const checkTimeStatus = calcElapsed(data.time);
+
+      if (checkTimeStatus === "elapsed") {
+        data.status = "elapsed";
+      }
+
       if (day === "today") {
         axios.post("/today", data, {
           "Content-Type": "application/json",
@@ -47,6 +104,7 @@ const TaskState = (props) => {
           value: data,
         });
       }
+
       if (day === "tomorrow") {
         axios.post("/today", data, {
           "Content-Type": "application/json",
@@ -66,11 +124,26 @@ const TaskState = (props) => {
 
   const getTasks = async () => {
     try {
-      const res = axios.get("/today");
-      console.log(res.data);
+      let res = await axios.get("/today");
+
+      let tasks = res.data;
+
+      console.log("Res.data: ", res.data);
+
+      const checkedTasks = tasks.map((task) => {
+        const checkTimeStatus = calcElapsed(task.time);
+
+        if (checkTimeStatus === "elapsed") {
+          task.status = "elapsed";
+        }
+        return task;
+      });
+
+      console.log("Checked Time: ", checkedTasks);
+
       action({
         name: GET_TODAY,
-        value: res.data,
+        value: checkedTasks,
       });
     } catch (err) {
       action({
@@ -79,14 +152,23 @@ const TaskState = (props) => {
     }
   };
 
-  const changeStatus = (task, status) => {
-    setLoading();
-
-    task.status = status;
-    action({
-      name: CHANGE_STATUS,
-      value: task,
-    });
+  const changeStatus = async (task, status) => {
+    try {
+      setLoading();
+      task.status = status;
+      await axios.put(`/today/${task.id}`, task, {
+        "Content-type": "application/json",
+      });
+      action({
+        name: CHANGE_STATUS,
+        value: task,
+      });
+    } catch (err) {
+      console.log(err);
+      action({
+        name: SET_ERRORS,
+      });
+    }
   };
 
   const deleteTask = async (id) => {
@@ -106,6 +188,12 @@ const TaskState = (props) => {
   };
   const editTask = async (task) => {
     try {
+      setLoading();
+      const checkTimeStatus = calcElapsed(task.time);
+
+      if (checkTimeStatus === "elapsed") {
+        task.status = "elapsed";
+      }
       await axios.put(`/today/${task.id}`, task, {
         "Content-Type": "application/json",
       });
@@ -134,6 +222,35 @@ const TaskState = (props) => {
     });
   };
 
+  const setFilter = (text) => {
+    text = text.toLowerCase();
+    setLoading();
+    let filterArray = null;
+    if (text !== "" && state.today.length > 0) {
+      filterArray = state.today.filter((task) =>
+        task.task_name.toLowerCase().includes(text) ||
+        task.time.toLowerCase().includes(text)
+          ? task
+          : null
+      );
+      console.log(
+        "Today",
+        state.today,
+        "Filtered at task state: ",
+        filterArray
+      );
+      action({
+        name: SET_FILTER,
+        value: filterArray,
+      });
+    } else {
+      action({
+        name: CLEAR_FILTER,
+      });
+      console.log("No data");
+    }
+  };
+
   const setLoading = () => {
     action({
       name: SET_LOADING,
@@ -152,6 +269,7 @@ const TaskState = (props) => {
         errors: state.errors,
         today: state.today,
         toEdit: state.toEdit,
+        filtered: state.filtered,
         createTask,
         setLoading,
         setError,
@@ -161,6 +279,7 @@ const TaskState = (props) => {
         getTasks,
         setToEdit,
         clearEdit,
+        setFilter,
       }}
     >
       {props.children}

@@ -13,6 +13,8 @@ import {
   GET_TASK,
   CHANGE_STATUS,
   EDIT_TASK,
+  SET_FILTER,
+  CLEAR_FILTER,
 } from "./types";
 
 const taskReducer = (state, action) => {
@@ -28,7 +30,7 @@ const taskReducer = (state, action) => {
     case GET_TODAY:
       return {
         ...state,
-        today: [action.value],
+        today: action.value,
         loading: false,
         errors: false,
       };
@@ -70,6 +72,20 @@ const taskReducer = (state, action) => {
         today: state.today.map((task) =>
           task.id === action.value.id ? action.value : task
         ),
+        loading: false,
+        errors: false,
+      };
+    case SET_FILTER:
+      return {
+        ...state,
+        filtered: action.value,
+        loading: false,
+        errors: false,
+      };
+    case CLEAR_FILTER:
+      return {
+        ...state,
+        filtered: null,
         loading: false,
         errors: false,
       };

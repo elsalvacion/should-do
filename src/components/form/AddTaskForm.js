@@ -17,7 +17,7 @@ const AddTaskForm = (props) => {
           value={task_name}
           onChange={(e) => handleChange(e)}
           type="text"
-          maxLength="50"
+          maxLength="25"
         />
       </div>
       <div className="input-field col s12">

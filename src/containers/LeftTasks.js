@@ -6,34 +6,39 @@ import TaskContext from "../context/taskContext";
 
 const LeftTasks = () => {
   const taskContext = useContext(TaskContext);
-  const { today, changeStatus, deleteTask, setToEdit, getTasks } = taskContext;
+  const { filtered, today, changeStatus, deleteTask, setToEdit, getTasks } =
+    taskContext;
 
-  // useEffect(() => {
-  //   getTasks();
-  // }, [taskContext]);
+  useEffect(() => {
+    getTasks();
+  }, []);
 
   let completed = [];
   let uncompleted = [];
   let cancelled = [];
   let elapsed = [];
+  let todayTask = null;
+  if (filtered) {
+    todayTask = filtered;
+    console.log("Filtered at left task: ", filtered);
+  } else {
+    todayTask = today;
+  }
+  if (todayTask.length > 0) {
+    todayTask.map((task) => {
+      if (task.status === "undone") {
+        uncompleted.push(task);
+      } else if (task.status === "done") {
+        completed.push(task);
+      } else if (task.status === "cancelled") {
+        cancelled.push(task);
+      } else if (task.status === "elapsed") {
+        elapsed.push(task);
+      }
+    });
+  }
 
-  // if (today.length > 0) {
-  //   today.map((task) => {
-  //     if (task.status) {
-  //       if (task.status === "undone") {
-  //         uncompleted.push(task);
-  //       } else if (task.status === "done") {
-  //         completed.push(task);
-  //       } else if (task.status === "cancelled") {
-  //         cancelled.push(task);
-  //       } else if (task.status === "elapsed") {
-  //         elapsed.push(task);
-  //       }
-  //     }
-  //   });
-  // }
-
-  if (today.length === 0) {
+  if (!todayTask) {
     return (
       <Fragment>
         <h4 className="center">No Task added today.</h4>
@@ -68,7 +73,7 @@ const LeftTasks = () => {
           </li>
         )}
 
-        {/* {completed.length > 0 && (
+        {completed.length > 0 && (
           <li>
             <div className="collapsible-header">
               <i className="material-icons">check</i>Completed Tasks
@@ -87,7 +92,28 @@ const LeftTasks = () => {
               </div>
             </div>
           </li>
-        )} */}
+        )}
+
+        {elapsed.length > 0 && (
+          <li>
+            <div className="collapsible-header">
+              <i className="material-icons">alarm_off</i>Elapsed Tasks
+            </div>
+            <div className="collapsible-body">
+              <div className="collection">
+                {elapsed.map((task) => (
+                  <Task
+                    key={task.id}
+                    task={task}
+                    changeToDone={changeStatus}
+                    delTask={deleteTask}
+                    taskEdit={setToEdit}
+                  />
+                ))}
+              </div>
+            </div>
+          </li>
+        )}
       </ul>
     </div>
   );

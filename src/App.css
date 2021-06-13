@@ -88,38 +88,29 @@ label {
   margin: 15px 0 !important;
 }
 
-.undone {
-  border: 1px solid #004d40;
-  border-left: 3px solid #004d40;
-}
-
 .done {
   border: 1px solid #4caf50;
   border-left: 3px solid #4caf50;
 }
 
-.cancelled {
+.undone {
   border: 1px solid #f44336;
   border-left: 3px solid #f44336;
 }
 .elapsed {
-  border: 1px solid #616161;
-  border-left: 3px solid #616161;
+  border: 1px solid #0d47a1;
+  border-left: 3px solid #0d47a1;
 }
 .done-circle {
   color: #4caf50;
 }
 
 .undone-circle {
-  color: #004d40;
-}
-
-.cancelled-circle {
   color: #f44336;
 }
 
 .elapsed-circle {
-  color: #616161;
+  color: #0d47a1;
 }
 .circles {
   width: fit-content;

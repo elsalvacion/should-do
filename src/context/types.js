@@ -25,3 +25,7 @@ export const GET_TODAY = "GET_TODAY";
 export const GET_TOMORROW = "GET_TOMORROW";
 
 export const CHANGE_STATUS = "CHANGE_STATUS";
+
+export const SET_FILTER = "SET_FILTER";
+
+export const CLEAR_FILTER = "CLEAR_FILTER";

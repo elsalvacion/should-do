@@ -12,10 +12,6 @@ const Indicators = () => {
         Uncomplete
       </div>
       <div className="valign-wrapper">
-        <i className="material-icons cancelled-circle">lens</i>
-        Cancelled
-      </div>
-      <div className="valign-wrapper">
         <i className="material-icons elapsed-circle">lens</i>
         Elapsed
       </div>
