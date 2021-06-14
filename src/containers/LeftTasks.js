@@ -6,42 +6,86 @@ import TaskContext from "../context/taskContext";
 
 const LeftTasks = () => {
   const taskContext = useContext(TaskContext);
-  const { filtered, today, changeStatus, deleteTask, setToEdit, getTasks } =
-    taskContext;
+  const {
+    today,
+    tomorrow,
+    // yesterday,
+    filtered,
+    allTasks,
+    changeStatus,
+    deleteTask,
+    setToEdit,
+    getTasks,
+  } = taskContext;
 
   useEffect(() => {
     getTasks();
+    // eslint-disable-next-line
   }, []);
 
   let completed = [];
   let uncompleted = [];
-  let cancelled = [];
   let elapsed = [];
   let todayTask = null;
-  if (filtered) {
-    todayTask = filtered;
-    console.log("Filtered at left task: ", filtered);
-  } else {
-    todayTask = today;
-  }
-  if (todayTask.length > 0) {
-    todayTask.map((task) => {
-      if (task.status === "undone") {
-        uncompleted.push(task);
-      } else if (task.status === "done") {
-        completed.push(task);
-      } else if (task.status === "cancelled") {
-        cancelled.push(task);
-      } else if (task.status === "elapsed") {
-        elapsed.push(task);
-      }
-    });
-  }
 
-  if (!todayTask) {
+  const fetchData = () => {
+    if (filtered) {
+      todayTask = filtered;
+      console.log("Filtered at left task: ", filtered);
+    } else {
+      todayTask = allTasks;
+    }
+    if (todayTask.length > 0) {
+      uncompleted = [];
+      completed = [];
+      elapsed = [];
+      // eslint-disable-next-line
+      todayTask.map((task) => {
+        if (today) {
+          if (task.status === "undone" && task.day === "today") {
+            uncompleted.push(task);
+          } else if (task.status === "done" && task.day === "today") {
+            completed.push(task);
+          } else if (task.status === "elapsed" && task.day === "today") {
+            elapsed.push(task);
+          }
+        }
+
+        if (tomorrow) {
+          if (task.status === "undone" && task.day === "tomorrow") {
+            uncompleted.push(task);
+          } else if (task.status === "done" && task.day === "tomorrow") {
+            completed.push(task);
+          } else if (task.status === "elapsed" && task.day === "tomorrow") {
+            elapsed.push(task);
+          }
+        }
+
+        // if (yesterday) {
+        //   if (task.status === "undone" && task.day === "yesterday") {
+        //     uncompleted.push(task);
+        //   } else if (task.status === "done" && task.day === "yesterday") {
+        //     completed.push(task);
+        //   } else if (task.status === "cancelled" && task.day === "yesterday") {
+        //     cancelled.push(task);
+        //   } else if (task.status === "elapsed" && task.day === "yesterday") {
+        //     elapsed.push(task);
+        //   }
+        // }
+      });
+    }
+  };
+
+  fetchData();
+
+  if (
+    completed.length === 0 &&
+    uncompleted.length === 0 &&
+    elapsed.length === 0
+  ) {
     return (
       <Fragment>
-        <h4 className="center">No Task added today.</h4>
+        <h4 className="center">No Entry.</h4>
         <p className="center">You can add by clicking on the + icons</p>
       </Fragment>
     );
@@ -50,10 +94,10 @@ const LeftTasks = () => {
   return (
     <div className="tasks">
       <Indicators />
-      <TaskDay day="Today" />
+      <TaskDay today={today} />
       <ul className="collapsible popout">
         {uncompleted.length > 0 && (
-          <li>
+          <li className={completed.length === 0 ? "active" : undefined}>
             <div className="collapsible-header">
               <i className="material-icons">access_time</i>UnCompleted Tasks
             </div>
@@ -74,7 +118,7 @@ const LeftTasks = () => {
         )}
 
         {completed.length > 0 && (
-          <li>
+          <li className="active">
             <div className="collapsible-header">
               <i className="material-icons">check</i>Completed Tasks
             </div>
@@ -95,7 +139,13 @@ const LeftTasks = () => {
         )}
 
         {elapsed.length > 0 && (
-          <li>
+          <li
+            className={
+              completed.length === 0 && uncompleted.length === 0
+                ? "active"
+                : undefined
+            }
+          >
             <div className="collapsible-header">
               <i className="material-icons">alarm_off</i>Elapsed Tasks
             </div>

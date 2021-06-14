@@ -7,17 +7,15 @@ import {
   SET_TODAY,
   SET_TOMORROW,
   SET_EDIT,
-  GET_TODAY,
-  GET_TOMORROW,
-  FETCH_OTHER_TASK,
-  CHANGE_TASK,
   DELETE_TASK,
   GET_TASK,
+  SET_TASK,
   CHANGE_STATUS,
   EDIT_TASK,
   CLEAR_EDIT,
   SET_FILTER,
   CLEAR_FILTER,
+  // SET_YESTERDAY,
 } from "./types";
 
 import axios from "axios";
@@ -26,9 +24,10 @@ const TaskState = (props) => {
   const initState = {
     loading: false,
     errors: false,
-    today: [],
-    yesterday: null,
-    tomorrow: null,
+    allTasks: [],
+    today: true,
+    yesterday: false,
+    tomorrow: false,
     history: null,
     toEdit: null,
     filtered: null,
@@ -45,7 +44,7 @@ const TaskState = (props) => {
       hrs = parseInt(hrsMinAry[0], 10);
       if ((tempAry[1] === "AM" || tempAry[1] === "am") && hrs === 12) {
         hrs = 0;
-      } else if ((tempAry[1] === "PM" || tempAry[1] === "pm") && hrs != 12) {
+      } else if ((tempAry[1] === "PM" || tempAry[1] === "pm") && hrs !== 12) {
         hrs += 12;
       }
       return (
@@ -74,17 +73,17 @@ const TaskState = (props) => {
         Number(hrs) === Number(timeSplit[0]) &&
         Number(mins) > Number(timeSplit[1])
       ) {
-        console.log("Time has elapsed");
+        // console.log("Time has elapsed");
         return "elapsed";
       } else {
-        console.log("Time didnt elapsed");
+        // console.log("Time didnt elapsed");
         return false;
       }
     }
   };
 
   // Create a new task
-  const createTask = async (data, day = "today") => {
+  const createTask = async (data) => {
     try {
       setLoading();
 
@@ -94,27 +93,14 @@ const TaskState = (props) => {
         data.status = "elapsed";
       }
 
-      if (day === "today") {
-        axios.post("/today", data, {
-          "Content-Type": "application/json",
-        });
+      axios.post("/tasks", data, {
+        "Content-Type": "application/json",
+      });
 
-        action({
-          name: SET_TODAY,
-          value: data,
-        });
-      }
-
-      if (day === "tomorrow") {
-        axios.post("/today", data, {
-          "Content-Type": "application/json",
-        });
-
-        action({
-          name: SET_TOMORROW,
-          value: data,
-        });
-      }
+      action({
+        name: SET_TASK,
+        value: data,
+      });
     } catch (err) {
       action({
         name: SET_ERRORS,
@@ -124,11 +110,11 @@ const TaskState = (props) => {
 
   const getTasks = async () => {
     try {
-      let res = await axios.get("/today");
+      let res = await axios.get("/tasks");
 
       let tasks = res.data;
 
-      console.log("Res.data: ", res.data);
+      // console.log("Res.data: ", res.data);
 
       const checkedTasks = tasks.map((task) => {
         const checkTimeStatus = calcElapsed(task.time);
@@ -139,10 +125,10 @@ const TaskState = (props) => {
         return task;
       });
 
-      console.log("Checked Time: ", checkedTasks);
+      // console.log("Checked Time: ", checkedTasks);
 
       action({
-        name: GET_TODAY,
+        name: GET_TASK,
         value: checkedTasks,
       });
     } catch (err) {
@@ -156,7 +142,7 @@ const TaskState = (props) => {
     try {
       setLoading();
       task.status = status;
-      await axios.put(`/today/${task.id}`, task, {
+      await axios.put(`/tasks/${task.id}`, task, {
         "Content-type": "application/json",
       });
       action({
@@ -174,7 +160,7 @@ const TaskState = (props) => {
   const deleteTask = async (id) => {
     try {
       setLoading();
-      await axios.delete(`/today/${id}`);
+      await axios.delete(`/tasks/${id}`);
       action({
         name: DELETE_TASK,
         value: id,
@@ -194,7 +180,7 @@ const TaskState = (props) => {
       if (checkTimeStatus === "elapsed") {
         task.status = "elapsed";
       }
-      await axios.put(`/today/${task.id}`, task, {
+      await axios.put(`/tasks/${task.id}`, task, {
         "Content-Type": "application/json",
       });
       action({
@@ -226,8 +212,8 @@ const TaskState = (props) => {
     text = text.toLowerCase();
     setLoading();
     let filterArray = null;
-    if (text !== "" && state.today.length > 0) {
-      filterArray = state.today.filter((task) =>
+    if (text !== "" && state.allTasks.length > 0) {
+      filterArray = state.allTasks.filter((task) =>
         task.task_name.toLowerCase().includes(text) ||
         task.time.toLowerCase().includes(text)
           ? task
@@ -251,6 +237,24 @@ const TaskState = (props) => {
     }
   };
 
+  const setToday = () => {
+    action({
+      name: SET_TODAY,
+    });
+  };
+
+  const setTomorrow = () => {
+    action({
+      name: SET_TOMORROW,
+    });
+  };
+
+  // const setYesterday = () => {
+  //   action({
+  //     name: SET_YESTERDAY,
+  //   });
+  // };
+
   const setLoading = () => {
     action({
       name: SET_LOADING,
@@ -268,6 +272,9 @@ const TaskState = (props) => {
         loading: state.loading,
         errors: state.errors,
         today: state.today,
+        tomorrow: state.tomorrow,
+        yesterday: state.yesterday,
+        allTasks: state.allTasks,
         toEdit: state.toEdit,
         filtered: state.filtered,
         createTask,
@@ -280,6 +287,9 @@ const TaskState = (props) => {
         setToEdit,
         clearEdit,
         setFilter,
+        setToday,
+        setTomorrow,
+        // setYesterday,
       }}
     >
       {props.children}

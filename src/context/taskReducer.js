@@ -3,41 +3,40 @@ import {
   SET_ERRORS,
   SET_TODAY,
   SET_TOMORROW,
-  GET_TODAY,
-  GET_TOMORROW,
   SET_EDIT,
   CLEAR_EDIT,
-  FETCH_OTHER_TASK,
-  CHANGE_TASK,
   DELETE_TASK,
   GET_TASK,
   CHANGE_STATUS,
   EDIT_TASK,
   SET_FILTER,
   CLEAR_FILTER,
+  SET_TASK,
+  // SET_YESTERDAY,
 } from "./types";
 
 const taskReducer = (state, action) => {
   switch (action.name) {
-    case SET_TODAY:
+    case SET_TASK:
       return {
         ...state,
-        today: [...state.today, action.value],
+        allTasks: [...state.allTasks, action.value],
         loading: false,
         errors: false,
       };
 
-    case GET_TODAY:
+    case GET_TASK:
       return {
         ...state,
-        today: action.value,
+        allTasks: action.value,
         loading: false,
         errors: false,
       };
+
     case CHANGE_STATUS:
       return {
         ...state,
-        today: state.today.map((task) =>
+        allTasks: state.allTasks.map((task) =>
           task.id === action.value.id ? action.value : task
         ),
         loading: false,
@@ -46,7 +45,7 @@ const taskReducer = (state, action) => {
     case DELETE_TASK:
       return {
         ...state,
-        today: state.today.filter((task) =>
+        allTasks: state.allTasks.filter((task) =>
           task.id === action.value ? null : task
         ),
         loading: false,
@@ -69,7 +68,7 @@ const taskReducer = (state, action) => {
     case EDIT_TASK:
       return {
         ...state,
-        today: state.today.map((task) =>
+        allTasks: state.allTasks.map((task) =>
           task.id === action.value.id ? action.value : task
         ),
         loading: false,
@@ -89,6 +88,33 @@ const taskReducer = (state, action) => {
         loading: false,
         errors: false,
       };
+    case SET_TODAY:
+      return {
+        ...state,
+        today: true,
+        tomorrow: false,
+        yesterday: false,
+        loading: false,
+        errors: false,
+      };
+    case SET_TOMORROW:
+      return {
+        ...state,
+        today: false,
+        tomorrow: true,
+        yesterday: false,
+        loading: false,
+        errors: false,
+      };
+    // case SET_YESTERDAY:
+    //   return {
+    //     ...state,
+    //     today: false,
+    //     tomorrow: false,
+    //     yesterday: true,
+    //     loading: false,
+    //     errors: false,
+    //   };
     case SET_LOADING:
       return {
         ...state,

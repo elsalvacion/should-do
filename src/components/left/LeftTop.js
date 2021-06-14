@@ -12,9 +12,7 @@ const LeftTop = () => {
           id="search"
           type="text"
           placeholder="Filter task by status, id, title, time"
-          id="filter"
           onChange={(e) => {
-            console.log(e.target.value);
             setFilter(e.target.value);
           }}
         />

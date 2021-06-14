@@ -26,7 +26,7 @@ const AddTaskForm = (props) => {
             Choose a day
           </option>
           <option value="today">Today</option>
-          <option value="tommorow">Tomorrow</option>
+          <option value="tomorrow">Tomorrow</option>
         </select>
         <label>Select Day</label>
       </div>

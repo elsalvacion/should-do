@@ -26,7 +26,7 @@ const AddTask = () => {
       current_date: new Date(),
     };
 
-    createTask(data, task.day);
+    createTask(data);
 
     resetStates();
   };
