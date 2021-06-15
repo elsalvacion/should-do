@@ -44,7 +44,9 @@ nav {
   color: black !important;
   display: block !important;
 }
-
+.scroll-spy-list {
+  padding: 10px !important;
+}
 .scroll-link:hover {
   border-left: none !important;
 }

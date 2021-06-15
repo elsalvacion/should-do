@@ -9,20 +9,16 @@ import TaskState from "./context/TaskState";
 function App() {
   useEffect(() => {
     M.AutoInit();
-    M.FormSelect.init(document.querySelectorAll("select"));
-    // M.Collapsible.init(document.querySelectorAll(".collapsible"), {
-    //   accordion: true,
-    // });
   });
 
   return (
-    <Fragment>
-      <Navbar />
-      <TaskState>
+    <TaskState>
+      <Fragment>
+        <Navbar />
         <Main />
         <AddTask />
-      </TaskState>
-    </Fragment>
+      </Fragment>
+    </TaskState>
   );
 }
 

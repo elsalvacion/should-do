@@ -11,10 +11,10 @@ const Indicators = () => {
         <i className="material-icons undone-circle">lens</i>
         Uncomplete
       </div>
-      <div className="valign-wrapper">
+      {/* <div className="valign-wrapper">
         <i className="material-icons elapsed-circle">lens</i>
         Elapsed
-      </div>
+      </div> */}
     </div>
   );
 };

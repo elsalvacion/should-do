@@ -8,30 +8,13 @@ const RightScrollspy = () => {
     <Fragment>
       <div className="col hide-on-small-only m3 l2 spy">
         <ul className="section table-of-contents">
-          {/* <li>
-            <a
-              onClick={() => setYesterday()}
-              href="#!"
-              className="scroll-link btn white"
-            >
-              Yesterday
-            </a>
-          </li> */}
           <li>
-            <a
-              onClick={() => setToday()}
-              href="#!"
-              className="scroll-link btn white"
-            >
+            <a onClick={() => setToday()} href="#!" className="scroll-link ">
               Today
             </a>
           </li>
           <li>
-            <a
-              onClick={() => setTomorrow()}
-              href="#!"
-              className="scroll-link btn white"
-            >
+            <a onClick={() => setTomorrow()} href="#!" className="scroll-link ">
               Tomorrow
             </a>
           </li>

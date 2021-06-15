@@ -9,36 +9,40 @@ const LeftTasks = () => {
   const {
     today,
     tomorrow,
-    // yesterday,
+    history,
+    historyTask,
     filtered,
     allTasks,
     changeStatus,
     deleteTask,
     setToEdit,
     getTasks,
+    getHistoryTask,
   } = taskContext;
 
   useEffect(() => {
     getTasks();
+    getHistoryTask();
     // eslint-disable-next-line
   }, []);
 
   let completed = [];
   let uncompleted = [];
-  let elapsed = [];
   let todayTask = null;
 
   const fetchData = () => {
     if (filtered) {
       todayTask = filtered;
       console.log("Filtered at left task: ", filtered);
+    } else if (history) {
+      todayTask = historyTask;
     } else {
       todayTask = allTasks;
     }
     if (todayTask.length > 0) {
       uncompleted = [];
       completed = [];
-      elapsed = [];
+
       // eslint-disable-next-line
       todayTask.map((task) => {
         if (today) {
@@ -46,8 +50,6 @@ const LeftTasks = () => {
             uncompleted.push(task);
           } else if (task.status === "done" && task.day === "today") {
             completed.push(task);
-          } else if (task.status === "elapsed" && task.day === "today") {
-            elapsed.push(task);
           }
         }
 
@@ -56,22 +58,15 @@ const LeftTasks = () => {
             uncompleted.push(task);
           } else if (task.status === "done" && task.day === "tomorrow") {
             completed.push(task);
-          } else if (task.status === "elapsed" && task.day === "tomorrow") {
-            elapsed.push(task);
           }
         }
-
-        // if (yesterday) {
-        //   if (task.status === "undone" && task.day === "yesterday") {
-        //     uncompleted.push(task);
-        //   } else if (task.status === "done" && task.day === "yesterday") {
-        //     completed.push(task);
-        //   } else if (task.status === "cancelled" && task.day === "yesterday") {
-        //     cancelled.push(task);
-        //   } else if (task.status === "elapsed" && task.day === "yesterday") {
-        //     elapsed.push(task);
-        //   }
-        // }
+        if (history) {
+          if (task.status === "undone") {
+            uncompleted.push(task);
+          } else if (task.status === "done") {
+            completed.push(task);
+          }
+        }
       });
     }
   };
@@ -81,7 +76,7 @@ const LeftTasks = () => {
   if (
     completed.length === 0 &&
     uncompleted.length === 0 &&
-    elapsed.length === 0
+    historyTask.length === 0
   ) {
     return (
       <Fragment>
@@ -91,10 +86,16 @@ const LeftTasks = () => {
     );
   }
 
+  const checkDay = () => {
+    if (today) return "Today";
+    else if (tomorrow) return "Tomorrow";
+    else if (history) return "History";
+  };
+
   return (
     <div className="tasks">
       <Indicators />
-      <TaskDay today={today} />
+      <TaskDay day={checkDay()} />
       <ul className="collapsible popout">
         {uncompleted.length > 0 && (
           <li className={completed.length === 0 ? "active" : undefined}>
@@ -107,6 +108,7 @@ const LeftTasks = () => {
                   <Task
                     key={task.id}
                     task={task}
+                    history={history}
                     changeToDone={changeStatus}
                     delTask={deleteTask}
                     taskEdit={setToEdit}
@@ -128,33 +130,7 @@ const LeftTasks = () => {
                   <Task
                     key={task.id}
                     task={task}
-                    changeToDone={changeStatus}
-                    delTask={deleteTask}
-                    taskEdit={setToEdit}
-                  />
-                ))}
-              </div>
-            </div>
-          </li>
-        )}
-
-        {elapsed.length > 0 && (
-          <li
-            className={
-              completed.length === 0 && uncompleted.length === 0
-                ? "active"
-                : undefined
-            }
-          >
-            <div className="collapsible-header">
-              <i className="material-icons">alarm_off</i>Elapsed Tasks
-            </div>
-            <div className="collapsible-body">
-              <div className="collection">
-                {elapsed.map((task) => (
-                  <Task
-                    key={task.id}
-                    task={task}
+                    history={history}
                     changeToDone={changeStatus}
                     delTask={deleteTask}
                     taskEdit={setToEdit}

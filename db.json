@@ -1,20 +1,68 @@
 {
   "tasks": [
     {
+      "id": 0.4723811608212982,
+      "time": "07:24 AM",
+      "task_name": "Ok",
+      "status": "undone",
+      "current_date": "2021-06-15T16:24:09.453Z"
+    },
+    {
+      "id": 0.8030125243160435,
+      "time": "07:24 AM",
+      "task_name": "Ok",
+      "status": "undone",
+      "current_date": "2021-06-15T16:24:32.209Z"
+    },
+    {
+      "id": 0.9885913318854789,
+      "task_name": "OK",
+      "day": "today",
+      "time": "09:25 AM",
+      "status": "done",
+      "current_date": "2021-06-15T16:25:06.595Z"
+    },
+    {
+      "id": 0.16494623718080503,
+      "time": "07:25 AM",
+      "task_name": "Hey",
+      "day": "tomorrow",
+      "status": "done",
+      "current_date": "2021-06-15T16:25:30.166Z"
+    },
+    {
+      "id": 0.829983147945476,
+      "time": "01:03 AM",
+      "task_name": "Yes",
+      "day": "tomorrow",
+      "status": "undone",
+      "current_date": "2021-06-15T17:03:49.400Z"
+    },
+    {
+      "id": 0.08967271682518074,
+      "time": "01:03 AM",
+      "task_name": "The mobsters",
+      "day": "tomorrow",
+      "status": "undone",
+      "current_date": "2021-06-15T17:04:03.072Z"
+    },
+    {
+      "id": 0.6158005440676162,
+      "time": "07:04 AM",
+      "task_name": "They are more romantic",
+      "day": "today",
+      "status": "undone",
+      "current_date": "2021-06-15T17:04:21.432Z"
+    }
+  ],
+  "history": [
+    {
       "id": 0.6267090412247525,
       "task_name": "Hey",
       "day": "today",
       "time": "06:44 AM",
       "status": "undone",
-      "current_date": "2021-06-14T18:44:28.797Z"
-    },
-    {
-      "id": 0.3779896984476432,
-      "task_name": "hi there",
-      "day": "tomorrow",
-      "time": "07:45 AM",
-      "status": "undone",
-      "current_date": "2021-06-14T18:45:26.947Z"
+      "current_date": "2021-06-13T18:44:28.797Z"
     },
     {
       "id": 0.89808281913851,
@@ -22,18 +70,47 @@
       "day": "tomorrow",
       "time": "07:52 AM",
       "status": "undone",
-      "current_date": "2021-06-14T18:52:12.131Z"
+      "current_date": "2021-06-13T18:52:12.131Z"
     },
     {
       "id": 0.9267071284399784,
       "time": "07:52 AM",
       "task_name": "Am done",
       "day": "today",
+      "status": "undone",
+      "current_date": "2021-06-13T18:52:57.051Z"
+    },
+    {
+      "id": 0.3779896984476432,
+      "task_name": "hi there",
+      "day": "tomorrow",
+      "time": "03:22 AM",
+      "status": "undone",
+      "current_date": "2021-06-14T18:45:26.947Z"
+    },
+    {
+      "id": 0.06041546866783487,
+      "task_name": "test",
+      "day": "today",
+      "time": "09:22 PM",
+      "status": "undone",
+      "current_date": "2021-06-14T19:22:08.859Z"
+    },
+    {
+      "id": 0.48378167044752396,
+      "task_name": "test",
+      "day": "tomorrow",
+      "time": "03:23 AM",
       "status": "done",
-      "current_date": "2021-06-14T18:52:57.051Z"
+      "current_date": "2021-06-14T19:23:40.060Z"
+    },
+    {
+      "id": 0.49775982542646924,
+      "task_name": "Hey",
+      "day": "today",
+      "time": "09:48 PM",
+      "status": "done",
+      "current_date": "2021-06-15T11:48:22.967Z"
     }
-  ],
-  "tomorrow": [],
-  "history": [],
-  "yesterday": []
+  ]
 }

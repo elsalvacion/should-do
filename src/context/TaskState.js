@@ -6,6 +6,7 @@ import {
   SET_ERRORS,
   SET_TODAY,
   SET_TOMORROW,
+  SET_HISTORY,
   SET_EDIT,
   DELETE_TASK,
   GET_TASK,
@@ -15,6 +16,8 @@ import {
   CLEAR_EDIT,
   SET_FILTER,
   CLEAR_FILTER,
+  SET_HISTORY_TASK,
+  GET_HISTORY_TASK,
   // SET_YESTERDAY,
 } from "./types";
 
@@ -25,6 +28,7 @@ const TaskState = (props) => {
     loading: false,
     errors: false,
     allTasks: [],
+    historyTask: [],
     today: true,
     yesterday: false,
     tomorrow: false,
@@ -36,62 +40,68 @@ const TaskState = (props) => {
   const [state, action] = useReducer(taskReducer, initState);
 
   // Credit to Stackoverflow
-  const get24HrsFrmAMPM = (timeStr) => {
-    if (timeStr && timeStr.indexOf(" ") !== -1 && timeStr.indexOf(":") !== -1) {
-      var hrs = 0;
-      var tempAry = timeStr.split(" ");
-      var hrsMinAry = tempAry[0].split(":");
-      hrs = parseInt(hrsMinAry[0], 10);
-      if ((tempAry[1] === "AM" || tempAry[1] === "am") && hrs === 12) {
-        hrs = 0;
-      } else if ((tempAry[1] === "PM" || tempAry[1] === "pm") && hrs !== 12) {
-        hrs += 12;
-      }
-      return (
-        ("0" + hrs).slice(-2) +
-        ":" +
-        ("0" + parseInt(hrsMinAry[1], 10)).slice(-2)
-      );
-    } else {
-      return null;
-    }
-  };
+  // const get24HrsFrmAMPM = (timeStr) => {
+  //   if (timeStr && timeStr.indexOf(" ") !== -1 && timeStr.indexOf(":") !== -1) {
+  //     var hrs = 0;
+  //     var tempAry = timeStr.split(" ");
+  //     var hrsMinAry = tempAry[0].split(":");
+  //     hrs = parseInt(hrsMinAry[0], 10);
+  //     if ((tempAry[1] === "AM" || tempAry[1] === "am") && hrs === 12) {
+  //       hrs = 0;
+  //     } else if ((tempAry[1] === "PM" || tempAry[1] === "pm") && hrs !== 12) {
+  //       hrs += 12;
+  //     }
+  //     return (
+  //       ("0" + hrs).slice(-2) +
+  //       ":" +
+  //       ("0" + parseInt(hrsMinAry[1], 10)).slice(-2)
+  //     );
+  //   } else {
+  //     return null;
+  //   }
+  // };
 
-  const calcElapsed = (time) => {
-    const hrs = new Date().getHours();
+  // const calcElapsed = (time) => {
+  //   const hrs = new Date().getHours();
 
-    const mins = new Date().getMinutes();
+  //   const mins = new Date().getMinutes();
 
-    const timeStr = get24HrsFrmAMPM(time);
+  //   const timeStr = get24HrsFrmAMPM(time);
 
-    const timeSplit = timeStr.split(":");
+  //   const timeSplit = timeStr.split(":");
 
-    if (Number(hrs) > Number(timeSplit[0])) {
-      return "elapsed";
-    } else {
-      if (
-        Number(hrs) === Number(timeSplit[0]) &&
-        Number(mins) > Number(timeSplit[1])
-      ) {
-        // console.log("Time has elapsed");
-        return "elapsed";
-      } else {
-        // console.log("Time didnt elapsed");
-        return false;
-      }
-    }
+  //   if (Number(hrs) > Number(timeSplit[0])) {
+  //     return "elapsed";
+  //   } else {
+  //     if (
+  //       Number(hrs) === Number(timeSplit[0]) &&
+  //       Number(mins) > Number(timeSplit[1])
+  //     ) {
+  //       // console.log("Time has elapsed");
+  //       return "elapsed";
+  //     } else {
+  //       // console.log("Time didnt elapsed");
+  //       return false;
+  //     }
+  //   }
+  // };
+
+  // Idea inspired by stackoverflow
+
+  const compareDate = (date) => {
+    const d1 = new Date();
+    const d2 = new Date(date);
+    const dayCompare = d1.getDate() > d2.getDate();
+    const monthCompare = d1.getMonth() > d2.getMonth();
+    const yearCompare = d1.getFullYear() > d2.getFullYear();
+
+    return dayCompare || monthCompare || yearCompare;
   };
 
   // Create a new task
   const createTask = async (data) => {
     try {
       setLoading();
-
-      const checkTimeStatus = calcElapsed(data.time);
-
-      if (checkTimeStatus === "elapsed") {
-        data.status = "elapsed";
-      }
 
       axios.post("/tasks", data, {
         "Content-Type": "application/json",
@@ -108,30 +118,74 @@ const TaskState = (props) => {
     }
   };
 
+  const setHistoryTask = async (task) => {
+    try {
+      setLoading();
+
+      await axios.post("/history", task, {
+        "Content-Type": "application/json",
+      });
+
+      action({
+        name: SET_HISTORY_TASK,
+        value: task,
+      });
+    } catch (err) {
+      console.log(err);
+      action({
+        name: SET_ERRORS,
+      });
+    }
+  };
+
+  const deleteTaskSendToHistory = async (id) => {
+    try {
+      setLoading();
+      await axios.delete(`/tasks/${id}`);
+    } catch (err) {
+      console.log(err);
+      action({
+        name: SET_ERRORS,
+      });
+    }
+  };
+
   const getTasks = async () => {
     try {
       let res = await axios.get("/tasks");
 
       let tasks = res.data;
 
-      // console.log("Res.data: ", res.data);
-
-      const checkedTasks = tasks.map((task) => {
-        const checkTimeStatus = calcElapsed(task.time);
-
-        if (checkTimeStatus === "elapsed") {
-          task.status = "elapsed";
+      const historyRemoved = tasks.filter((task) => {
+        if (compareDate(task.current_date)) {
+          setHistoryTask(task);
+          deleteTaskSendToHistory(task.id);
+          return null;
+        } else {
+          return task;
         }
-        return task;
       });
-
-      // console.log("Checked Time: ", checkedTasks);
 
       action({
         name: GET_TASK,
-        value: checkedTasks,
+        value: historyRemoved,
       });
     } catch (err) {
+      action({
+        name: SET_ERRORS,
+      });
+    }
+  };
+
+  const getHistoryTask = async () => {
+    try {
+      const res = await axios.get("/history");
+      action({
+        name: GET_HISTORY_TASK,
+        value: res.data,
+      });
+    } catch (err) {
+      console.log(err);
       action({
         name: SET_ERRORS,
       });
@@ -175,11 +229,7 @@ const TaskState = (props) => {
   const editTask = async (task) => {
     try {
       setLoading();
-      const checkTimeStatus = calcElapsed(task.time);
 
-      if (checkTimeStatus === "elapsed") {
-        task.status = "elapsed";
-      }
       await axios.put(`/tasks/${task.id}`, task, {
         "Content-Type": "application/json",
       });
@@ -212,7 +262,11 @@ const TaskState = (props) => {
     text = text.toLowerCase();
     setLoading();
     let filterArray = null;
-    if (text !== "" && state.allTasks.length > 0) {
+    if (
+      text !== "" &&
+      state.allTasks.length > 0 &&
+      (state.today || state.tomorrow)
+    ) {
       filterArray = state.allTasks.filter((task) =>
         task.task_name.toLowerCase().includes(text) ||
         task.time.toLowerCase().includes(text)
@@ -225,6 +279,17 @@ const TaskState = (props) => {
         "Filtered at task state: ",
         filterArray
       );
+    }
+    if (text !== "" && state.allTasks.length > 0 && state.history) {
+      filterArray = state.historyTask.filter((task) =>
+        task.task_name.toLowerCase().includes(text) ||
+        task.time.toLowerCase().includes(text)
+          ? task
+          : null
+      );
+    }
+
+    if (filterArray) {
       action({
         name: SET_FILTER,
         value: filterArray,
@@ -249,11 +314,11 @@ const TaskState = (props) => {
     });
   };
 
-  // const setYesterday = () => {
-  //   action({
-  //     name: SET_YESTERDAY,
-  //   });
-  // };
+  const setHistory = () => {
+    action({
+      name: SET_HISTORY,
+    });
+  };
 
   const setLoading = () => {
     action({
@@ -277,6 +342,8 @@ const TaskState = (props) => {
         allTasks: state.allTasks,
         toEdit: state.toEdit,
         filtered: state.filtered,
+        history: state.history,
+        historyTask: state.historyTask,
         createTask,
         setLoading,
         setError,
@@ -289,7 +356,8 @@ const TaskState = (props) => {
         setFilter,
         setToday,
         setTomorrow,
-        // setYesterday,
+        setHistory,
+        getHistoryTask,
       }}
     >
       {props.children}

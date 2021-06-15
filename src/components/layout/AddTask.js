@@ -8,7 +8,7 @@ const AddTask = () => {
 
   const [task, setTask] = useState({
     task_name: "",
-    day: "",
+    day: "today",
     time: "",
   });
 
@@ -26,6 +26,7 @@ const AddTask = () => {
       current_date: new Date(),
     };
 
+    console.log(task);
     createTask(data);
 
     resetStates();
@@ -46,6 +47,7 @@ const AddTask = () => {
     setTask({
       time: "",
       task_name: "",
+      day: "today",
     });
   };
 

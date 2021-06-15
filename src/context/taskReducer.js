@@ -12,6 +12,9 @@ import {
   SET_FILTER,
   CLEAR_FILTER,
   SET_TASK,
+  SET_HISTORY,
+  SET_HISTORY_TASK,
+  GET_HISTORY_TASK,
   // SET_YESTERDAY,
 } from "./types";
 
@@ -93,7 +96,7 @@ const taskReducer = (state, action) => {
         ...state,
         today: true,
         tomorrow: false,
-        yesterday: false,
+        history: false,
         loading: false,
         errors: false,
       };
@@ -102,19 +105,36 @@ const taskReducer = (state, action) => {
         ...state,
         today: false,
         tomorrow: true,
-        yesterday: false,
+        history: false,
         loading: false,
         errors: false,
       };
-    // case SET_YESTERDAY:
-    //   return {
-    //     ...state,
-    //     today: false,
-    //     tomorrow: false,
-    //     yesterday: true,
-    //     loading: false,
-    //     errors: false,
-    //   };
+    case SET_HISTORY:
+      return {
+        ...state,
+        today: false,
+        tomorrow: false,
+        history: true,
+        loading: false,
+        errors: false,
+      };
+
+    case SET_HISTORY_TASK:
+      return {
+        ...state,
+        historyTask: [...state.historyTask, action.value],
+        loading: false,
+        errors: false,
+      };
+
+    case GET_HISTORY_TASK:
+      return {
+        ...state,
+        historyTask: action.value,
+        loading: false,
+        errors: false,
+      };
+
     case SET_LOADING:
       return {
         ...state,

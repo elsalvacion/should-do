@@ -1,8 +1,11 @@
 import React, { Fragment, useEffect } from "react";
+import M from "materialize-css/dist/js/materialize.min";
+
 const AddTaskForm = (props) => {
   const { task, handleChange } = props;
   const { task_name, day, time } = task;
   useEffect(() => {
+    M.FormSelect.init(document.querySelectorAll("select"));
     document.querySelector("#task_name").focus();
   });
   return (
@@ -22,9 +25,6 @@ const AddTaskForm = (props) => {
       </div>
       <div className="input-field col s12">
         <select name="day" value={day} onChange={(e) => handleChange(e)}>
-          <option value="" disabled>
-            Choose a day
-          </option>
           <option value="today">Today</option>
           <option value="tomorrow">Tomorrow</option>
         </select>

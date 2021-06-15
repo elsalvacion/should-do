@@ -1,6 +1,10 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useContext } from "react";
+import TaskContext from "../../context/taskContext";
 
 const Navbar = () => {
+  const taskContext = useContext(TaskContext);
+
+  const { setToday, setTomorrow } = taskContext;
   return (
     <Fragment>
       <nav className="teal darken-4">
@@ -34,17 +38,20 @@ const Navbar = () => {
 
       <ul className=" teal darken-4 sidenav " id="sidenav">
         <li>
-          <a href="#!" className="white-text nav-link center">
-            Yesterday
-          </a>
-        </li>
-        <li>
-          <a href="#!" className="white-text nav-link center">
+          <a
+            onClick={() => setToday()}
+            href="#!"
+            className="white-text nav-link center"
+          >
             Today
           </a>
         </li>
         <li>
-          <a href="#!" className="white-text nav-link center">
+          <a
+            onClick={() => setTomorrow()}
+            href="#!"
+            className="white-text nav-link center"
+          >
             Tomorrow
           </a>
         </li>
