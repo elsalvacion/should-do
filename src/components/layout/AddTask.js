@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useContext, useEffect } from "react";
 import AddTaskForm from "../form/AddTaskForm";
 import TaskContext from "../../context/taskContext";
-
+import { v4 as uuidv4 } from "uuid";
 const AddTask = () => {
   const taskContext = useContext(TaskContext);
   const { createTask, toEdit, editTask, clearEdit } = taskContext;
@@ -20,13 +20,12 @@ const AddTask = () => {
 
   const addTask = () => {
     const data = {
-      id: Math.random(),
+      id: uuidv4(),
       ...task,
       status: "undone",
       current_date: new Date(),
     };
 
-    console.log(task);
     createTask(data);
 
     resetStates();

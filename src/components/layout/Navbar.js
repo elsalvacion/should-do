@@ -1,5 +1,6 @@
 import React, { Fragment, useContext } from "react";
 import TaskContext from "../../context/taskContext";
+import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
   const taskContext = useContext(TaskContext);
@@ -10,26 +11,31 @@ const Navbar = () => {
       <nav className="teal darken-4">
         <div className="nav-wrapper">
           <div className="container">
-            <a href="#!" className="left brand-logo">
+            <NavLink to="/" className="left brand-logo">
               Should <span>Do</span>
-            </a>
-            <a
-              href="#!"
+            </NavLink>
+            <NavLink
+              to="/"
               data-target="sidenav"
               className="right  sidenav-trigger"
             >
               <i className="large material-icons">menu</i>
-            </a>
+            </NavLink>
             <ul id="nav-mobile" className="right hide-on-med-and-down">
               <li>
-                <a href="#!" className="nav-link center">
-                  Help
-                </a>
+                <NavLink to="/" className="nav-link center">
+                  Home
+                </NavLink>
               </li>
               <li>
-                <a href="#!" className="nav-link center">
+                <NavLink to="/help" className="nav-link center">
+                  Help
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/about" className="nav-link center">
                   About
-                </a>
+                </NavLink>
               </li>
             </ul>
           </div>
@@ -38,32 +44,37 @@ const Navbar = () => {
 
       <ul className=" teal darken-4 sidenav " id="sidenav">
         <li>
-          <a
+          <NavLink
             onClick={() => setToday()}
-            href="#!"
+            to="/"
             className="white-text nav-link center"
           >
             Today
-          </a>
+          </NavLink>
         </li>
         <li>
-          <a
+          <NavLink
             onClick={() => setTomorrow()}
-            href="#!"
+            to="/"
             className="white-text nav-link center"
           >
             Tomorrow
-          </a>
+          </NavLink>
         </li>
         <li>
-          <a href="#!" className="white-text nav-link center">
+          <NavLink to="/" className="white-text nav-link center">
+            Home
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/help" className="white-text nav-link center">
             Help
-          </a>
+          </NavLink>
         </li>
         <li>
-          <a href="#!" className="white-text nav-link center">
+          <NavLink to="/about" className="white-text nav-link center">
             About
-          </a>
+          </NavLink>
         </li>
       </ul>
     </Fragment>

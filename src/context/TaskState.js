@@ -103,14 +103,16 @@ const TaskState = (props) => {
     try {
       setLoading();
 
-      axios.post("/tasks", data, {
-        "Content-Type": "application/json",
-      });
+      setTimeout(() => {
+        axios.post("http://localhost:5000/tasks", data, {
+          "Content-Type": "application/json",
+        });
 
-      action({
-        name: SET_TASK,
-        value: data,
-      });
+        action({
+          name: SET_TASK,
+          value: data,
+        });
+      }, 3000);
     } catch (err) {
       action({
         name: SET_ERRORS,
@@ -122,7 +124,7 @@ const TaskState = (props) => {
     try {
       setLoading();
 
-      await axios.post("/history", task, {
+      await axios.post("http://localhost:5000/history", task, {
         "Content-Type": "application/json",
       });
 
@@ -141,7 +143,7 @@ const TaskState = (props) => {
   const deleteTaskSendToHistory = async (id) => {
     try {
       setLoading();
-      await axios.delete(`/tasks/${id}`);
+      await axios.delete(`http://localhost:5000/tasks/${id}`);
     } catch (err) {
       console.log(err);
       action({
@@ -152,7 +154,8 @@ const TaskState = (props) => {
 
   const getTasks = async () => {
     try {
-      let res = await axios.get("/tasks");
+      setLoading();
+      let res = await axios.get("http://localhost:5000/tasks");
 
       let tasks = res.data;
 
@@ -179,7 +182,9 @@ const TaskState = (props) => {
 
   const getHistoryTask = async () => {
     try {
-      const res = await axios.get("/history");
+      setLoading();
+
+      const res = await axios.get("http://localhost:5000/history");
       action({
         name: GET_HISTORY_TASK,
         value: res.data,
@@ -196,7 +201,7 @@ const TaskState = (props) => {
     try {
       setLoading();
       task.status = status;
-      await axios.put(`/tasks/${task.id}`, task, {
+      await axios.put(`http://localhost:5000/tasks/${task.id}`, task, {
         "Content-type": "application/json",
       });
       action({
@@ -214,7 +219,7 @@ const TaskState = (props) => {
   const deleteTask = async (id) => {
     try {
       setLoading();
-      await axios.delete(`/tasks/${id}`);
+      await axios.delete(`http://localhost:5000/tasks/${id}`);
       action({
         name: DELETE_TASK,
         value: id,
@@ -230,7 +235,7 @@ const TaskState = (props) => {
     try {
       setLoading();
 
-      await axios.put(`/tasks/${task.id}`, task, {
+      await axios.put(`http://localhost:5000/tasks/${task.id}`, task, {
         "Content-Type": "application/json",
       });
       action({
@@ -246,6 +251,7 @@ const TaskState = (props) => {
   };
 
   const setToEdit = (task) => {
+    setLoading();
     action({
       name: SET_EDIT,
       value: task,
@@ -253,14 +259,15 @@ const TaskState = (props) => {
   };
 
   const clearEdit = () => {
+    setLoading();
     action({
       name: CLEAR_EDIT,
     });
   };
 
   const setFilter = (text) => {
-    text = text.toLowerCase();
     setLoading();
+    text = text.toLowerCase();
     let filterArray = null;
     if (
       text !== "" &&
@@ -303,18 +310,21 @@ const TaskState = (props) => {
   };
 
   const setToday = () => {
+    setLoading();
     action({
       name: SET_TODAY,
     });
   };
 
   const setTomorrow = () => {
+    setLoading();
     action({
       name: SET_TOMORROW,
     });
   };
 
   const setHistory = () => {
+    setLoading();
     action({
       name: SET_HISTORY,
     });

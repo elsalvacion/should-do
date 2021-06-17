@@ -1,58 +1,44 @@
 {
   "tasks": [
     {
-      "id": 0.4723811608212982,
-      "time": "07:24 AM",
-      "task_name": "Ok",
-      "status": "undone",
-      "current_date": "2021-06-15T16:24:09.453Z"
-    },
-    {
-      "id": 0.8030125243160435,
-      "time": "07:24 AM",
-      "task_name": "Ok",
-      "status": "undone",
-      "current_date": "2021-06-15T16:24:32.209Z"
-    },
-    {
-      "id": 0.9885913318854789,
-      "task_name": "OK",
+      "id": "93ade7a0-0842-4764-b855-6e4b75dd0727",
+      "task_name": "Today",
       "day": "today",
-      "time": "09:25 AM",
+      "time": "12:45 AM",
       "status": "done",
-      "current_date": "2021-06-15T16:25:06.595Z"
+      "current_date": "2021-06-17T16:45:52.622Z"
     },
     {
-      "id": 0.16494623718080503,
-      "time": "07:25 AM",
-      "task_name": "Hey",
-      "day": "tomorrow",
-      "status": "done",
-      "current_date": "2021-06-15T16:25:30.166Z"
-    },
-    {
-      "id": 0.829983147945476,
-      "time": "01:03 AM",
-      "task_name": "Yes",
-      "day": "tomorrow",
-      "status": "undone",
-      "current_date": "2021-06-15T17:03:49.400Z"
-    },
-    {
-      "id": 0.08967271682518074,
-      "time": "01:03 AM",
-      "task_name": "The mobsters",
-      "day": "tomorrow",
-      "status": "undone",
-      "current_date": "2021-06-15T17:04:03.072Z"
-    },
-    {
-      "id": 0.6158005440676162,
-      "time": "07:04 AM",
-      "task_name": "They are more romantic",
+      "id": "e9fcec5e-0642-400a-982f-f30355eb3fa3",
+      "time": "12:46 AM",
+      "task_name": "Sam and Carla",
       "day": "today",
+      "status": "done",
+      "current_date": "2021-06-17T16:46:02.284Z"
+    },
+    {
+      "id": "564efd5c-192c-44f7-8b03-6ba2603ef7a7",
+      "task_name": "I am watching it",
+      "day": "tomorrow",
+      "time": "06:47 AM",
       "status": "undone",
-      "current_date": "2021-06-15T17:04:21.432Z"
+      "current_date": "2021-06-17T16:47:09.618Z"
+    },
+    {
+      "id": "ca8b3d14-ff60-4524-95d2-fd7be9a642e2",
+      "task_name": "Yow",
+      "day": "today",
+      "time": "07:50 AM",
+      "status": "undone",
+      "current_date": "2021-06-17T18:50:13.286Z"
+    },
+    {
+      "id": "6f6eaca4-5967-428e-b5ee-aec5214f2a21",
+      "task_name": "uoosdugusgd",
+      "day": "today",
+      "time": "03:09 AM",
+      "status": "undone",
+      "current_date": "2021-06-17T19:09:31.389Z"
     }
   ],
   "history": [
@@ -111,6 +97,36 @@
       "time": "09:48 PM",
       "status": "done",
       "current_date": "2021-06-15T11:48:22.967Z"
+    },
+    {
+      "id": 0.4723811608212982,
+      "time": "07:24 AM",
+      "task_name": "Ok",
+      "status": "undone",
+      "current_date": "2021-06-15T16:24:09.453Z"
+    },
+    {
+      "id": 0.8030125243160435,
+      "time": "07:24 AM",
+      "task_name": "Ok",
+      "status": "undone",
+      "current_date": "2021-06-15T16:24:32.209Z"
+    },
+    {
+      "id": "bf7e59c7-9ca4-401b-8227-91cfb853cf94",
+      "task_name": "bohvbohvoh",
+      "day": "tomorrow",
+      "time": "05:10 PM",
+      "status": "done",
+      "current_date": "2021-06-17T15:10:30.277Z"
+    },
+    {
+      "id": "4aa9f4f9-282d-4a62-8f0a-06fdd3eea761",
+      "time": "06:10 PM",
+      "task_name": "hi",
+      "day": "today",
+      "status": "done",
+      "current_date": "2021-06-17T15:10:59.826Z"
     }
   ]
 }

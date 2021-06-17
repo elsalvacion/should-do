@@ -1,4 +1,5 @@
 import React, { Fragment, useContext, useEffect } from "react";
+import Spinner from "../components/layout/Spinner";
 import Indicators from "../components/left/Indicators";
 import Task from "../components/left/Task";
 import TaskDay from "../components/left/TaskDay";
@@ -13,6 +14,7 @@ const LeftTasks = () => {
     historyTask,
     filtered,
     allTasks,
+    loading,
     changeStatus,
     deleteTask,
     setToEdit,
@@ -26,8 +28,8 @@ const LeftTasks = () => {
     // eslint-disable-next-line
   }, []);
 
-  let completed = [];
-  let uncompleted = [];
+  let completed = null;
+  let uncompleted = null;
   let todayTask = null;
 
   const fetchData = () => {
@@ -39,7 +41,7 @@ const LeftTasks = () => {
     } else {
       todayTask = allTasks;
     }
-    if (todayTask.length > 0) {
+    if (todayTask) {
       uncompleted = [];
       completed = [];
 
@@ -73,6 +75,10 @@ const LeftTasks = () => {
 
   fetchData();
 
+  if (loading) {
+    return <Spinner />;
+  }
+
   if (
     completed.length === 0 &&
     uncompleted.length === 0 &&
@@ -94,11 +100,10 @@ const LeftTasks = () => {
 
   return (
     <div className="tasks">
-      <Indicators />
       <TaskDay day={checkDay()} />
       <ul className="collapsible popout">
         {uncompleted.length > 0 && (
-          <li className={completed.length === 0 ? "active" : undefined}>
+          <li className="active">
             <div className="collapsible-header">
               <i className="material-icons">access_time</i>UnCompleted Tasks
             </div>
@@ -120,7 +125,7 @@ const LeftTasks = () => {
         )}
 
         {completed.length > 0 && (
-          <li className="active">
+          <li className={uncompleted.length === 0 ? "active" : undefined}>
             <div className="collapsible-header">
               <i className="material-icons">check</i>Completed Tasks
             </div>
