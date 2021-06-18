@@ -1,5 +1,5 @@
 import React, { Fragment, useContext } from "react";
-import TaskContext from "../../context/taskContext";
+import TaskContext from "../../context/task/taskContext";
 import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
@@ -35,6 +35,16 @@ const Navbar = () => {
               <li>
                 <NavLink to="/about" className="nav-link center">
                   About
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/login" className="nav-link center">
+                  Login
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/register" className="nav-link center">
+                  Register
                 </NavLink>
               </li>
             </ul>
@@ -74,6 +84,16 @@ const Navbar = () => {
         <li>
           <NavLink to="/about" className="white-text nav-link center">
             About
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/login" className="white-text nav-link center">
+            Login
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/register" className="white-text nav-link center">
+            Register
           </NavLink>
         </li>
       </ul>

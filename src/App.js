@@ -6,9 +6,13 @@ import "./App.css";
 import Navbar from "./components/layout/Navbar";
 import Main from "./containers/Main";
 import AddTask from "./components/layout/AddTask";
-import TaskState from "./context/TaskState";
+import TaskState from "./context/task/TaskState";
+import AuthState from "./context/auth/AuthState";
 import About from "./components/layout/About";
 import Help from "./components/layout/Help";
+import Login from "./components/form/Login";
+import Register from "./components/form/Register";
+import Forget from "./components/form/Forget";
 function App() {
   useEffect(() => {
     M.AutoInit();
@@ -16,23 +20,34 @@ function App() {
 
   return (
     <Router>
-      <TaskState>
-        <Navbar />
-        <Switch>
-          <Route exact path="/">
-            <Fragment>
-              <Main />
-              <AddTask />
-            </Fragment>
-          </Route>
-          <Route exact path="/about">
-            <About />
-          </Route>
-          <Route exact path="/help">
-            <Help />
-          </Route>
-        </Switch>
-      </TaskState>
+      <AuthState>
+        <TaskState>
+          <Navbar />
+          <Switch>
+            <Route exact path="/">
+              <Fragment>
+                <Main />
+                <AddTask />
+              </Fragment>
+            </Route>
+            <Route exact path="/about">
+              <About />
+            </Route>
+            <Route exact path="/help">
+              <Help />
+            </Route>
+            <Route exact path="/login">
+              <Login />
+            </Route>
+            <Route exact path="/register">
+              <Register />
+            </Route>
+            <Route exact path="/forget">
+              <Forget />
+            </Route>
+          </Switch>
+        </TaskState>
+      </AuthState>
     </Router>
   );
 }

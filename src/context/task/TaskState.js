@@ -103,16 +103,14 @@ const TaskState = (props) => {
     try {
       setLoading();
 
-      setTimeout(() => {
-        axios.post("http://localhost:5000/tasks", data, {
-          "Content-Type": "application/json",
-        });
+      axios.post("http://localhost:5000/tasks", data, {
+        "Content-Type": "application/json",
+      });
 
-        action({
-          name: SET_TASK,
-          value: data,
-        });
-      }, 3000);
+      action({
+        name: SET_TASK,
+        value: data,
+      });
     } catch (err) {
       action({
         name: SET_ERRORS,

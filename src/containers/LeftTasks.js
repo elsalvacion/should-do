@@ -1,9 +1,8 @@
 import React, { Fragment, useContext, useEffect } from "react";
 import Spinner from "../components/layout/Spinner";
-import Indicators from "../components/left/Indicators";
 import Task from "../components/left/Task";
 import TaskDay from "../components/left/TaskDay";
-import TaskContext from "../context/taskContext";
+import TaskContext from "../context/task/taskContext";
 
 const LeftTasks = () => {
   const taskContext = useContext(TaskContext);
