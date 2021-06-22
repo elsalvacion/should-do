@@ -25,7 +25,7 @@ const AuthState = (props) => {
     try {
       setLoading();
 
-      await axios.post("http://localhost:5000/user", data, {
+      await axios.post("/user", data, {
         "Content-Type": "application/json",
       });
 
@@ -43,7 +43,7 @@ const AuthState = (props) => {
   const loginUser = async (data) => {
     try {
       setLoading();
-      const res = await axios.get("http://localhost:5000/user");
+      const res = await axios.get("/user");
 
       const available = res.data.filter((user) => {
         if (user.email === data.email && user.password === data.password) {
@@ -54,10 +54,9 @@ const AuthState = (props) => {
       });
 
       if (available) {
-        console.log(available);
         action({
           name: LOGIN_USER,
-          value: res.data,
+          value: available[0],
         });
       } else {
         action({
@@ -70,6 +69,12 @@ const AuthState = (props) => {
         name: SET_ERRORS,
       });
     }
+  };
+
+  const logoutUser = () => {
+    action({
+      name: LOGOUT_USER,
+    });
   };
 
   const setLoading = () => {
@@ -86,6 +91,7 @@ const AuthState = (props) => {
         authErrors: state.authErrors,
         registerUser,
         loginUser,
+        logoutUser,
       }}
     >
       {props.children}

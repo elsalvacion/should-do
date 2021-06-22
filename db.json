@@ -1,118 +1,56 @@
 {
-  "tasks": [],
-  "history": [
+  "tasks": [
     {
-      "id": 0.6267090412247525,
+      "id": "fdbfd138-8da5-403e-a248-41d9c17be20b",
       "task_name": "Hey",
       "day": "today",
-      "time": "06:44 AM",
-      "status": "undone",
-      "current_date": "2021-06-13T18:44:28.797Z"
-    },
-    {
-      "id": 0.89808281913851,
-      "task_name": "I am trying hard",
-      "day": "tomorrow",
-      "time": "07:52 AM",
-      "status": "undone",
-      "current_date": "2021-06-13T18:52:12.131Z"
-    },
-    {
-      "id": 0.9267071284399784,
-      "time": "07:52 AM",
-      "task_name": "Am done",
-      "day": "today",
-      "status": "undone",
-      "current_date": "2021-06-13T18:52:57.051Z"
-    },
-    {
-      "id": 0.3779896984476432,
-      "task_name": "hi there",
-      "day": "tomorrow",
-      "time": "03:22 AM",
-      "status": "undone",
-      "current_date": "2021-06-14T18:45:26.947Z"
-    },
-    {
-      "id": 0.06041546866783487,
-      "task_name": "test",
-      "day": "today",
-      "time": "09:22 PM",
-      "status": "undone",
-      "current_date": "2021-06-14T19:22:08.859Z"
-    },
-    {
-      "id": 0.48378167044752396,
-      "task_name": "test",
-      "day": "tomorrow",
-      "time": "03:23 AM",
+      "time": "11:16 PM",
       "status": "done",
-      "current_date": "2021-06-14T19:23:40.060Z"
+      "current_date": "2021-06-22T15:16:13.154Z",
+      "userId": 1
     },
     {
-      "id": 0.49775982542646924,
+      "id": "76b2fb6a-02bf-4922-a213-4baf41756959",
+      "time": "07:16 PM",
+      "task_name": "Ok",
+      "day": "today",
+      "status": "undone",
+      "current_date": "2021-06-22T15:16:23.952Z",
+      "userId": 1
+    },
+    {
+      "id": "1ea588c8-2019-4e74-b9c0-c1d0f6c3731e",
       "task_name": "Hey",
       "day": "today",
-      "time": "09:48 PM",
-      "status": "done",
-      "current_date": "2021-06-15T11:48:22.967Z"
-    },
-    {
-      "id": 0.4723811608212982,
-      "time": "07:24 AM",
-      "task_name": "Ok",
+      "time": "11:26 PM",
       "status": "undone",
-      "current_date": "2021-06-15T16:24:09.453Z"
+      "current_date": "2021-06-22T15:26:48.220Z",
+      "userId": 2
     },
     {
-      "id": 0.8030125243160435,
-      "time": "07:24 AM",
-      "task_name": "Ok",
-      "status": "undone",
-      "current_date": "2021-06-15T16:24:32.209Z"
-    },
-    {
-      "id": "bf7e59c7-9ca4-401b-8227-91cfb853cf94",
-      "task_name": "bohvbohvoh",
-      "day": "tomorrow",
-      "time": "05:10 PM",
-      "status": "done",
-      "current_date": "2021-06-17T15:10:30.277Z"
-    },
-    {
-      "id": "4aa9f4f9-282d-4a62-8f0a-06fdd3eea761",
-      "time": "06:10 PM",
-      "task_name": "hi",
+      "id": "0159bf2b-450e-492f-aead-9037f678b4e3",
+      "time": "08:27 PM",
+      "task_name": "Yes yes auth works",
       "day": "today",
       "status": "done",
-      "current_date": "2021-06-17T15:10:59.826Z"
-    },
-    {
-      "id": "ca8b3d14-ff60-4524-95d2-fd7be9a642e2",
-      "task_name": "Yow",
-      "day": "today",
-      "time": "07:50 AM",
-      "status": "done",
-      "current_date": "2021-06-17T18:50:13.286Z"
+      "current_date": "2021-06-22T15:27:08.811Z",
+      "userId": 2
     }
   ],
+  "history": [],
   "user": [
     {
       "first_name": "Alieu",
       "last_name": "Keita",
       "email": "alieukeita201@gmail.com",
-      "confirm_email": "alieukeita201@gmail.com",
       "password": "12345",
-      "confirm_password": "12345",
       "id": 1
     },
     {
-      "first_name": "Alieu",
-      "last_name": "Keita",
-      "email": "el@gmail.com",
-      "confirm_email": "el@gmail.com",
+      "first_name": "Musa",
+      "last_name": "Jawo",
+      "email": "msjawo@gmail.com",
       "password": "12345",
-      "confirm_password": "12345",
       "id": 2
     }
   ]

@@ -103,7 +103,7 @@ const TaskState = (props) => {
     try {
       setLoading();
 
-      axios.post("http://localhost:5000/tasks", data, {
+      axios.post(`/tasks/`, data, {
         "Content-Type": "application/json",
       });
 
@@ -122,7 +122,7 @@ const TaskState = (props) => {
     try {
       setLoading();
 
-      await axios.post("http://localhost:5000/history", task, {
+      await axios.post("/history", task, {
         "Content-Type": "application/json",
       });
 
@@ -141,7 +141,7 @@ const TaskState = (props) => {
   const deleteTaskSendToHistory = async (id) => {
     try {
       setLoading();
-      await axios.delete(`http://localhost:5000/tasks/${id}`);
+      await axios.delete(`/tasks/${id}`);
     } catch (err) {
       console.log(err);
       action({
@@ -150,14 +150,20 @@ const TaskState = (props) => {
     }
   };
 
-  const getTasks = async () => {
+  const getTasks = async (user) => {
     try {
       setLoading();
-      let res = await axios.get("http://localhost:5000/tasks");
+
+      let res = await axios.get("/tasks");
 
       let tasks = res.data;
 
-      const historyRemoved = tasks.filter((task) => {
+      const getOnlyMyTask = tasks.filter((task) => {
+        if (user.id === task.userId) return task;
+        else return null;
+      });
+
+      const historyRemoved = getOnlyMyTask.filter((task) => {
         if (compareDate(task.current_date)) {
           setHistoryTask(task);
           deleteTaskSendToHistory(task.id);
@@ -182,7 +188,7 @@ const TaskState = (props) => {
     try {
       setLoading();
 
-      const res = await axios.get("http://localhost:5000/history");
+      const res = await axios.get("/history");
       action({
         name: GET_HISTORY_TASK,
         value: res.data,
@@ -199,7 +205,7 @@ const TaskState = (props) => {
     try {
       setLoading();
       task.status = status;
-      await axios.put(`http://localhost:5000/tasks/${task.id}`, task, {
+      await axios.put(`/tasks/${task.id}`, task, {
         "Content-type": "application/json",
       });
       action({
@@ -217,7 +223,7 @@ const TaskState = (props) => {
   const deleteTask = async (id) => {
     try {
       setLoading();
-      await axios.delete(`http://localhost:5000/tasks/${id}`);
+      await axios.delete(`/tasks/${id}`);
       action({
         name: DELETE_TASK,
         value: id,
@@ -233,7 +239,7 @@ const TaskState = (props) => {
     try {
       setLoading();
 
-      await axios.put(`http://localhost:5000/tasks/${task.id}`, task, {
+      await axios.put(`/tasks/${task.id}`, task, {
         "Content-Type": "application/json",
       });
       action({

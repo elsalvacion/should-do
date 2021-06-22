@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, Redirect } from "react-router-dom";
 import AuthContext from "../../context/auth/authContext";
 import axios from "axios";
 
@@ -9,7 +9,7 @@ const Login = () => {
   }, []);
 
   const authContext = useContext(AuthContext);
-  const { loginUser } = authContext;
+  const { loginUser, isAuthenticated } = authContext;
 
   const [login, setLogin] = useState({
     email: "",
@@ -28,7 +28,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const res = await axios.get("http://localhost:5000/user");
+    const res = await axios.get("/user");
 
     const available = res.data.filter((user) => {
       if (user.email === login.email && user.password === login.password) {
@@ -37,17 +37,21 @@ const Login = () => {
         return null;
       }
     });
+    const data = {
+      email: login.email,
+      password: login.password,
+    };
     if (available.length > 0) {
-      loginUser(login);
+      loginUser(data);
       setLogin({
         email: "",
         password: "",
       });
-      history.push("/");
     } else {
       console.log("Wrong Input");
     }
   };
+
   return (
     <div className="row login">
       <div className="conatiner">

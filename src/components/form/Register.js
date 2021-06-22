@@ -32,7 +32,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const res = await axios.get("http://localhost:5000/user");
+    const res = await axios.get("/user");
 
     const available = res.data.filter((user) => {
       if (user.email === register.email) {
@@ -45,7 +45,13 @@ const Register = () => {
     if (available.length > 0) {
       console.log("User Exist");
     } else {
-      registerUser(register);
+      const data = {
+        first_name: register.first_name,
+        last_name: register.last_name,
+        email: register.email,
+        password: register.password,
+      };
+      registerUser(data);
       setRegister({
         first_name: "",
         last_name: "",

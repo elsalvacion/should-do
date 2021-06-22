@@ -1,11 +1,14 @@
 import React, { Fragment, useState, useContext, useEffect } from "react";
+import M from "materialize-css/dist/js/materialize";
 import AddTaskForm from "../form/AddTaskForm";
 import TaskContext from "../../context/task/taskContext";
+import AuthContext from "../../context/auth/authContext";
 import { v4 as uuidv4 } from "uuid";
+import { Redirect } from "react-router-dom";
 const AddTask = () => {
   const taskContext = useContext(TaskContext);
   const { createTask, toEdit, editTask, clearEdit } = taskContext;
-
+  const { user } = useContext(AuthContext);
   const [task, setTask] = useState({
     task_name: "",
     day: "today",
@@ -19,16 +22,23 @@ const AddTask = () => {
   }, [taskContext, toEdit]);
 
   const addTask = () => {
-    const data = {
-      id: uuidv4(),
-      ...task,
-      status: "undone",
-      current_date: new Date(),
-    };
+    if (user) {
+      const data = {
+        id: uuidv4(),
+        ...task,
+        status: "undone",
+        current_date: new Date(),
+        userId: user.id,
+      };
 
-    createTask(data);
+      console.log(data);
 
-    resetStates();
+      createTask(data);
+
+      resetStates();
+    } else {
+      <Redirect to="/login" />;
+    }
   };
 
   const changeTask = () => {

@@ -3,9 +3,10 @@ import Spinner from "../components/layout/Spinner";
 import Task from "../components/left/Task";
 import TaskDay from "../components/left/TaskDay";
 import TaskContext from "../context/task/taskContext";
-
+import authContext from "../context/auth/authContext";
 const LeftTasks = () => {
   const taskContext = useContext(TaskContext);
+  const { user } = useContext(authContext);
   const {
     today,
     tomorrow,
@@ -22,7 +23,7 @@ const LeftTasks = () => {
   } = taskContext;
 
   useEffect(() => {
-    getTasks();
+    getTasks(user);
     getHistoryTask();
     // eslint-disable-next-line
   }, []);

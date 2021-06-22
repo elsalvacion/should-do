@@ -17,6 +17,14 @@ const authReducer = (state, action) => {
         authLoading: false,
         authErrors: false,
       };
+    case LOGOUT_USER:
+      return {
+        ...state,
+        user: null,
+        isAuthenticated: false,
+        authLoading: false,
+        authErrors: false,
+      };
     default:
       return state;
   }
