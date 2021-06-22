@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useHistory, Redirect } from "react-router-dom";
+import { Link, Redirect, withRouter } from "react-router-dom";
 import AuthContext from "../../context/auth/authContext";
 import axios from "axios";
 
@@ -15,8 +15,6 @@ const Login = () => {
     email: "",
     password: "",
   });
-
-  let history = useHistory();
 
   const handleChange = (e) => {
     setLogin({
@@ -52,7 +50,9 @@ const Login = () => {
     }
   };
 
-  return (
+  return isAuthenticated ? (
+    <Redirect to="/" />
+  ) : (
     <div className="row login">
       <div className="conatiner">
         <form
@@ -118,4 +118,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default withRouter(Login);

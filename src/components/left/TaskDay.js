@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
 import TaskContext from "../../context/task/taskContext";
-
+import authContext from "../../context/auth/authContext";
 const TaskDay = ({ day }) => {
   const taskContext = useContext(TaskContext);
+  const { user } = useContext(authContext);
   const { setHistory } = taskContext;
   return (
     <div className="task-head">

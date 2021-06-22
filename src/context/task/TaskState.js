@@ -184,14 +184,22 @@ const TaskState = (props) => {
     }
   };
 
-  const getHistoryTask = async () => {
+  const getHistoryTask = async (user) => {
     try {
       setLoading();
 
       const res = await axios.get("/history");
+
+      let tasks = res.data;
+
+      const getOnlyHisHistory = tasks.filter((task) => {
+        if (user.id === task.userId) return task;
+        else return null;
+      });
+
       action({
         name: GET_HISTORY_TASK,
-        value: res.data,
+        value: getOnlyHisHistory,
       });
     } catch (err) {
       console.log(err);

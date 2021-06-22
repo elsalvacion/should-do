@@ -7,7 +7,7 @@ const LeftTop = () => {
   return (
     <div className="row">
       <div className="col s12 search">
-        <label htmlFor="filter">Max Length 10 characteres</label>
+        <label htmlFor="filter">Max Length 25 characteres</label>
         <input
           id="search"
           type="text"

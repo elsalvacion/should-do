@@ -24,7 +24,7 @@ const LeftTasks = () => {
 
   useEffect(() => {
     getTasks(user);
-    getHistoryTask();
+    getHistoryTask(user);
     // eslint-disable-next-line
   }, []);
 

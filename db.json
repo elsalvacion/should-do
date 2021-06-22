@@ -1,5 +1,6 @@
 {
-  "tasks": [
+  "tasks": [],
+  "history": [
     {
       "id": "fdbfd138-8da5-403e-a248-41d9c17be20b",
       "task_name": "Hey",
@@ -37,7 +38,6 @@
       "userId": 2
     }
   ],
-  "history": [],
   "user": [
     {
       "first_name": "Alieu",

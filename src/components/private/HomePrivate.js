@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import Home from "../layout/Home";
 import AuthContext from "../../context/auth/authContext";
-import { Redirect, Route } from "react-router-dom";
+import { Redirect, withRouter } from "react-router-dom";
 const HomePrivate = ({ ...rest }) => {
   const authContext = useContext(AuthContext);
   const { isAuthenticated } = authContext;
@@ -9,4 +9,4 @@ const HomePrivate = ({ ...rest }) => {
   return <Redirect to="/login" />;
 };
 
-export default HomePrivate;
+export default withRouter(HomePrivate);

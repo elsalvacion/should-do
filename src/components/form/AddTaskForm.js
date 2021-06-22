@@ -12,7 +12,7 @@ const AddTaskForm = (props) => {
     <Fragment>
       <div className="input-field col s12">
         <label htmlFor="task_name" className="dark-text">
-          Summarize Task (Max-Length: 50 Characters)
+          Summarize Task (Max-Length: 25 Characters)
         </label>
         <input
           id="task_name"
