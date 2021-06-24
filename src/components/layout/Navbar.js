@@ -1,8 +1,11 @@
 import React, { Fragment, useContext } from "react";
+import TaskContext from "../../context/task/taskContext";
 import { NavLink } from "react-router-dom";
 import AuthContext from "../../context/auth/authContext";
 const Navbar = () => {
+  const taskContext = useContext(TaskContext);
   const { isAuthenticated, logoutUser } = useContext(AuthContext);
+  const { setToday, setTomorrow } = taskContext;
   return (
     <Fragment>
       <nav className="teal darken-4">
@@ -81,6 +84,24 @@ const Navbar = () => {
             <li>
               <NavLink to="/" className="nav-link center white-text">
                 Home
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="#!"
+                onClick={(e) => setToday()}
+                className="nav-link center white-text"
+              >
+                Today
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="#!"
+                onClick={(e) => setTomorrow()}
+                className="nav-link center white-text"
+              >
+                Tomorrow
               </NavLink>
             </li>
             <li>
