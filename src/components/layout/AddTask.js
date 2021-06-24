@@ -1,10 +1,11 @@
 import React, { Fragment, useState, useContext, useEffect } from "react";
-import M from "materialize-css/dist/js/materialize";
 import AddTaskForm from "../form/AddTaskForm";
 import TaskContext from "../../context/task/taskContext";
 import AuthContext from "../../context/auth/authContext";
 import { v4 as uuidv4 } from "uuid";
 import { Redirect } from "react-router-dom";
+import Alert from "./Alert";
+
 const AddTask = () => {
   const taskContext = useContext(TaskContext);
   const { createTask, toEdit, editTask, clearEdit } = taskContext;
@@ -21,35 +22,78 @@ const AddTask = () => {
     }
   }, [taskContext, toEdit]);
 
-  const addTask = () => {
-    if (user) {
-      const data = {
-        id: uuidv4(),
-        ...task,
-        status: "undone",
-        current_date: new Date(),
-        userId: user.id,
-      };
+  const [alert, setAlert] = useState({
+    type: null,
+    msg: [],
+  });
 
-      console.log(data);
+  const clearAlert = () => {
+    setAlert({
+      type: "",
+      msg: [],
+    });
+  };
+  const addTask = (e) => {
+    e.preventDefault();
 
-      createTask(data);
+    try {
+      if (task.task_name === "" || task.time === "") {
+        setAlert({
+          type: "error",
+          msg: ["All fields are required"],
+        });
+      } else {
+        if (user) {
+          const data = {
+            id: uuidv4(),
+            ...task,
+            status: "undone",
+            current_date: new Date(),
+            userId: user.id,
+          };
 
-      resetStates();
-    } else {
-      <Redirect to="/login" />;
+          createTask(data);
+
+          setAlert({
+            type: "success",
+            msg: ["Successfully added"],
+          });
+        } else {
+          <Redirect to="/login" />;
+        }
+      }
+    } catch (err) {
+      console.log("Error at add task");
     }
   };
 
   const changeTask = () => {
-    editTask(task);
-    clearEdit();
-    resetStates();
+    try {
+      if (task.task_name === "" || task.time === "") {
+        setAlert({
+          type: "error",
+          msg: ["All fields are required"],
+        });
+      } else {
+        editTask(task);
+
+        setAlert({
+          type: "success",
+          msg: ["Successfully added"],
+        });
+      }
+    } catch (err) {
+      console.log("Error");
+    }
   };
 
   const clearAll = () => {
     clearEdit();
     resetStates();
+    setAlert({
+      type: "",
+      msg: [],
+    });
   };
 
   const resetStates = () => {
@@ -84,23 +128,33 @@ const AddTask = () => {
         <div className="modal-content">
           <h4 className="center">Add a To-DO</h4>
           <div className="row">
-            <AddTaskForm task={task} handleChange={handleChange} />
-            <div className="col s12">
-              <a
-                href="#!"
-                className="modal-close waves-effect waves-green btn-flat teal darken-4 white-text modal-submit"
-                onClick={toEdit ? changeTask : addTask}
-              >
-                {toEdit ? "Update" : "Add"}
-              </a>
-            </div>
+            <form onSubmit={(e) => addTask(e)}>
+              {alert.msg.length > 0 && (
+                <Alert
+                  type={alert.type}
+                  msg={alert.msg}
+                  clearAlert={clearAlert}
+                />
+              )}
+              <AddTaskForm task={task} handleChange={handleChange} />
+              <div className="col s12">
+                <a
+                  href="#!"
+                  type="submit"
+                  className={`waves-effect waves-green btn-flat teal darken-4 white-text modal-submit `}
+                  onClick={toEdit ? changeTask : addTask}
+                >
+                  {toEdit ? "Update" : "Add"}
+                </a>
+              </div>
+            </form>
           </div>
         </div>
         <div className="modal-footer">
           <a
             href="#!"
-            className="modal-close waves-effect waves-green btn-flat red white-text modal-btn"
-            onClick={clearAll}
+            className="modal-close waves-effect waves-green btn-flat white-text modal-btn"
+            onClick={(e) => clearAll()}
           >
             Close
           </a>

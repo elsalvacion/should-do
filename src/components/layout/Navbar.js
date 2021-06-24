@@ -1,11 +1,8 @@
 import React, { Fragment, useContext } from "react";
-import TaskContext from "../../context/task/taskContext";
 import { NavLink } from "react-router-dom";
 import AuthContext from "../../context/auth/authContext";
 const Navbar = () => {
-  const taskContext = useContext(TaskContext);
   const { isAuthenticated, logoutUser } = useContext(AuthContext);
-  const { setToday, setTomorrow } = taskContext;
   return (
     <Fragment>
       <nav className="teal darken-4">

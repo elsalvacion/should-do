@@ -1,5 +1,4 @@
-import React from "react";
-import { REGISTER_USER, LOGIN_USER, LOGOUT_USER, SET_USER } from "./types";
+import { REGISTER_USER, LOGIN_USER, LOGOUT_USER } from "./types";
 
 const authReducer = (state, action) => {
   switch (action.name) {

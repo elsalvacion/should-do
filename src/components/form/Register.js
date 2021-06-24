@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import AuthContext from "../../context/auth/authContext";
 import axios from "axios";
+import Alert from "../layout/Alert";
 
 const Register = () => {
   useEffect(() => {
@@ -20,6 +21,18 @@ const Register = () => {
     confirm_password: "",
   });
 
+  const clearAlert = () => {
+    setAlert({
+      type: "",
+      msg: [],
+    });
+  };
+
+  const [alert, setAlert] = useState({
+    type: null,
+    msg: [],
+  });
+
   let history = useHistory();
 
   const handleChange = (e) => {
@@ -31,36 +44,52 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      const res = await axios.get("/user");
 
-    const res = await axios.get("/user");
-
-    const available = res.data.filter((user) => {
-      if (user.email === register.email) {
-        return user;
-      } else {
-        return null;
-      }
-    });
-
-    if (available.length > 0) {
-      console.log("User Exist");
-    } else {
-      const data = {
-        first_name: register.first_name,
-        last_name: register.last_name,
-        email: register.email,
-        password: register.password,
-      };
-      registerUser(data);
-      setRegister({
-        first_name: "",
-        last_name: "",
-        email: "",
-        confirm_email: "",
-        password: "",
-        confirm_password: "",
+      const available = res.data.filter((user) => {
+        if (user.email === register.email) {
+          return user;
+        } else {
+          return null;
+        }
       });
-      history.push("/login");
+
+      if (available.length > 0) {
+        setAlert({
+          type: "error",
+          msg: ["User Email Exist"],
+        });
+      } else {
+        if (
+          register.email !== register.confirm_email ||
+          register.password !== register.confirm_password
+        ) {
+          setAlert({
+            type: "error",
+            msg: ["Email or Password do not match"],
+          });
+        } else {
+          const data = {
+            first_name: register.first_name,
+            last_name: register.last_name,
+            email: register.email,
+            password: register.password,
+          };
+          registerUser(data);
+          setRegister({
+            first_name: "",
+            last_name: "",
+            email: "",
+            confirm_email: "",
+            password: "",
+            confirm_password: "",
+          });
+          history.push("/login");
+        }
+      }
+    } catch (err) {
+      console.log("Error at Register");
     }
   };
   return (
@@ -77,11 +106,14 @@ const Register = () => {
             </p>
           </div>
 
+          {alert.msg.length > 0 && (
+            <Alert type={alert.type} msg={alert.msg} clearAlert={clearAlert} />
+          )}
+
           {/* NAME */}
           <div className="row">
             <div className="input-field col s6">
               <input
-                placeholder="Placeholder"
                 id="first_name"
                 type="text"
                 className="validate"
@@ -121,7 +153,7 @@ const Register = () => {
           <div className="row">
             <div className="input-field col s12">
               <input
-                id="confirm email"
+                id="confirm_email"
                 type="email"
                 className="validate"
                 name="confirm_email"

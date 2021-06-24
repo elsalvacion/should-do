@@ -6,7 +6,6 @@ import {
   REGISTER_USER,
   LOGIN_USER,
   LOGOUT_USER,
-  SET_USER,
   SET_ERRORS,
   SET_LOADING,
 } from "./types";

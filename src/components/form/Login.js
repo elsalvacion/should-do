@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, Redirect, withRouter } from "react-router-dom";
 import AuthContext from "../../context/auth/authContext";
 import axios from "axios";
+import Alert from "../layout/Alert";
 
 const Login = () => {
   useEffect(() => {
@@ -16,6 +17,11 @@ const Login = () => {
     password: "",
   });
 
+  const [alert, setAlert] = useState({
+    type: null,
+    msg: [],
+  });
+
   const handleChange = (e) => {
     setLogin({
       ...login,
@@ -24,32 +30,45 @@ const Login = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    try {
+      e.preventDefault();
 
-    const res = await axios.get("/user");
+      const res = await axios.get("/user");
 
-    const available = res.data.filter((user) => {
-      if (user.email === login.email && user.password === login.password) {
-        return user;
-      } else {
-        return null;
-      }
-    });
-    const data = {
-      email: login.email,
-      password: login.password,
-    };
-    if (available.length > 0) {
-      loginUser(data);
-      setLogin({
-        email: "",
-        password: "",
+      const available = res.data.filter((user) => {
+        if (user.email === login.email && user.password === login.password) {
+          return user;
+        } else {
+          return null;
+        }
       });
-    } else {
-      console.log("Wrong Input");
+      const data = {
+        email: login.email,
+        password: login.password,
+      };
+      if (available.length > 0) {
+        loginUser(data);
+        setLogin({
+          email: "",
+          password: "",
+        });
+      } else {
+        setAlert({
+          type: "error",
+          msg: ["Incorrect Email or Password"],
+        });
+      }
+    } catch (err) {
+      console.log("Error");
     }
   };
 
+  const clearAlert = () => {
+    setAlert({
+      type: "",
+      msg: [],
+    });
+  };
   return isAuthenticated ? (
     <Redirect to="/" />
   ) : (
@@ -62,6 +81,9 @@ const Login = () => {
           <div className="row center">
             <h3>Login</h3>
           </div>
+          {alert.msg.length > 0 && (
+            <Alert type={alert.type} msg={alert.msg} clearAlert={clearAlert} />
+          )}
           {/* EMAIL */}
           <div className="row">
             <div className="input-field col s12">
@@ -71,6 +93,7 @@ const Login = () => {
                 className="validate"
                 name="email"
                 onChange={(e) => handleChange(e)}
+                required
               />
               <label htmlFor="email">Email</label>
             </div>
@@ -85,6 +108,7 @@ const Login = () => {
                 className="validate"
                 name="password"
                 onChange={(e) => handleChange(e)}
+                required
               />
               <label htmlFor="password">Password</label>
               <p>

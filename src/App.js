@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "materialize-css/dist/css/materialize.css";
 import M from "materialize-css/dist/js/materialize";
@@ -15,7 +15,7 @@ import HomePrivate from "./components/private/HomePrivate";
 function App() {
   useEffect(() => {
     M.AutoInit();
-    // M.Modal.init(document.querySelector(".modal"));
+    M.Modal.init(document.querySelectorAll(".modal"));
   });
 
   return (

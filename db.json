@@ -1,5 +1,33 @@
 {
-  "tasks": [],
+  "tasks": [
+    {
+      "id": "de99ef22-31b1-4b47-b6d1-997adffc2ad8",
+      "task_name": "All in One",
+      "day": "today",
+      "time": "05:19 AM",
+      "status": "done",
+      "current_date": "2021-06-24T19:19:27.515Z",
+      "userId": 1
+    },
+    {
+      "id": "4cb71932-dfb7-4be2-9caf-2c629faa3f11",
+      "time": "03:24 AM",
+      "task_name": "Hahah",
+      "day": "today",
+      "status": "done",
+      "current_date": "2021-06-24T19:24:20.780Z",
+      "userId": 1
+    },
+    {
+      "id": "93e52848-74e1-4d19-88d7-acfbe324347d",
+      "time": "03:34 AM",
+      "task_name": "Ok dude",
+      "day": "today",
+      "status": "undone",
+      "current_date": "2021-06-24T19:34:16.620Z",
+      "userId": 1
+    }
+  ],
   "history": [
     {
       "id": "fdbfd138-8da5-403e-a248-41d9c17be20b",
@@ -36,6 +64,24 @@
       "status": "done",
       "current_date": "2021-06-22T15:27:08.811Z",
       "userId": 2
+    },
+    {
+      "id": "f43e1454-8057-497a-9efd-cc02f6f1095d",
+      "task_name": "Yow Yow",
+      "day": "today",
+      "time": "03:07 AM",
+      "status": "undone",
+      "current_date": "2021-06-23T19:07:38.249Z",
+      "userId": 1
+    },
+    {
+      "id": "7ee61c2c-7fb7-412c-9d70-7365ca1ed857",
+      "time": "03:07 AM",
+      "task_name": "What's up dude?",
+      "day": "today",
+      "status": "done",
+      "current_date": "2021-06-23T19:07:55.262Z",
+      "userId": 1
     }
   ],
   "user": [

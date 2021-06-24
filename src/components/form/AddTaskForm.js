@@ -1,12 +1,11 @@
 import React, { Fragment, useEffect } from "react";
-import M from "materialize-css/dist/js/materialize.min";
+import M from "materialize-css/dist/js/materialize";
 
 const AddTaskForm = (props) => {
   const { task, handleChange } = props;
   const { task_name, day, time } = task;
   useEffect(() => {
     M.FormSelect.init(document.querySelectorAll("select"));
-    document.querySelector("#task_name").focus();
   });
   return (
     <Fragment>
@@ -19,6 +18,8 @@ const AddTaskForm = (props) => {
           name="task_name"
           value={task_name}
           onChange={(e) => handleChange(e)}
+          placeholder="Summarize Task "
+          required
           type="text"
           maxLength="25"
         />
@@ -38,6 +39,7 @@ const AddTaskForm = (props) => {
           value={time}
           onSelect={(e) => handleChange(e)}
           onChange={(e) => handleChange(e)}
+          required
           name="time"
           id="time"
         />
