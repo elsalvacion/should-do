@@ -6,6 +6,7 @@ const AddTaskForm = (props) => {
   const { task_name, day, time } = task;
   useEffect(() => {
     M.FormSelect.init(document.querySelectorAll("select"));
+    document.querySelector("#task_name").focus();
   });
   return (
     <Fragment>
@@ -18,7 +19,6 @@ const AddTaskForm = (props) => {
           name="task_name"
           value={task_name}
           onChange={(e) => handleChange(e)}
-          placeholder="Summarize Task "
           required
           type="text"
           maxLength="25"

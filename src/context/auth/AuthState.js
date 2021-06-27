@@ -1,7 +1,9 @@
 import React, { useReducer } from "react";
 import axios from "axios";
+import CryptoJs from "crypto-js";
 import AuthContext from "./authContext";
 import authReducer from "./authReducer";
+
 import {
   REGISTER_USER,
   LOGIN_USER,
@@ -19,6 +21,7 @@ const AuthState = (props) => {
   };
 
   const [state, action] = useReducer(authReducer, initialState);
+  const secretKey = "onlyfortesting";
 
   const registerUser = async (data) => {
     try {
@@ -45,7 +48,13 @@ const AuthState = (props) => {
       const res = await axios.get("/user");
 
       const available = res.data.filter((user) => {
-        if (user.email === data.email && user.password === data.password) {
+        const pwd1 = CryptoJs.AES.decrypt(user.password, secretKey).toString(
+          CryptoJs.enc.Utf8
+        );
+        const pwd2 = CryptoJs.AES.decrypt(data.password, secretKey).toString(
+          CryptoJs.enc.Utf8
+        );
+        if (user.email === data.email && pwd1 === pwd2) {
           return user;
         } else {
           return null;

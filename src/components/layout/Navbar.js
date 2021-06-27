@@ -39,6 +39,7 @@ const Navbar = () => {
                       Help
                     </NavLink>
                   </li>
+
                   <li>
                     <NavLink
                       onClick={(e) => logoutUser()}

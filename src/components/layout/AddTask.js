@@ -2,7 +2,6 @@ import React, { Fragment, useState, useContext, useEffect } from "react";
 import AddTaskForm from "../form/AddTaskForm";
 import TaskContext from "../../context/task/taskContext";
 import AuthContext from "../../context/auth/authContext";
-import { v4 as uuidv4 } from "uuid";
 import { Redirect } from "react-router-dom";
 import Alert from "./Alert";
 
@@ -45,7 +44,6 @@ const AddTask = () => {
       } else {
         if (user) {
           const data = {
-            id: uuidv4(),
             ...task,
             status: "undone",
             current_date: new Date(),
@@ -62,6 +60,11 @@ const AddTask = () => {
           <Redirect to="/login" />;
         }
       }
+      setTask({
+        time: "",
+        task_name: "",
+        day: "today",
+      });
     } catch (err) {
       console.log("Error at add task");
     }
@@ -90,10 +93,6 @@ const AddTask = () => {
   const clearAll = () => {
     clearEdit();
     resetStates();
-    setAlert({
-      type: "",
-      msg: [],
-    });
   };
 
   const resetStates = () => {
@@ -101,6 +100,10 @@ const AddTask = () => {
       time: "",
       task_name: "",
       day: "today",
+    });
+    setAlert({
+      type: "",
+      msg: [],
     });
   };
 
@@ -153,7 +156,7 @@ const AddTask = () => {
         <div className="modal-footer">
           <a
             href="#!"
-            className="modal-close waves-effect waves-green btn-flat white-text modal-btn"
+            className="modal-close red waves-effect waves-green btn-flat white-text modal-btn"
             onClick={(e) => clearAll()}
           >
             Close

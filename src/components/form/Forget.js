@@ -1,8 +1,15 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import CryptoJs from "crypto-js";
+import React, { useEffect, useState, useContext } from "react";
 import { useHistory, Link } from "react-router-dom";
 import Alert from "../layout/Alert";
+import Spinner from "../layout/Spinner";
+import AuthContext from "../../context/auth/authContext";
+
 const Forget = () => {
+  const authContext = useContext(AuthContext);
+  const { authLoading } = authContext;
+
   useEffect(() => {
     document.title = "Should Do - Forget";
   }, []);
@@ -19,6 +26,7 @@ const Forget = () => {
   });
 
   const history = useHistory();
+  const secretKey = "onlyfortesting";
 
   const handleChange = (e) => {
     setPass({
@@ -32,38 +40,41 @@ const Forget = () => {
     try {
       const res = await axios.get("/user");
 
-      if (res.status === 200 && res.data.length >= 1) {
-        let user = res.data.filter((usr) => {
-          if (usr.email === pass.email && usr.password === pass.password)
-            return usr;
-          else return null;
+      let user = res.data.filter((usr) => {
+        const pwd = CryptoJs.AES.decrypt(usr.password, secretKey).toString(
+          CryptoJs.enc.Utf8
+        );
+        if (usr.email === pass.email && pwd === pass.password) return usr;
+        else return null;
+      });
+
+      if (user.length > 0) {
+        user = user[0];
+        const newPwd = CryptoJs.AES.encrypt(
+          pass.newPassword,
+          secretKey
+        ).toString();
+        const userData = {
+          ...user,
+          password: newPwd,
+        };
+
+        await axios.put(`/user/${user.id}`, userData, {
+          "Content-Type": "application/json",
         });
 
-        if (user.length > 0) {
-          user = user[0];
+        setPass({
+          email: "",
+          password: "",
+          newPassword: "",
+        });
 
-          const userData = {
-            ...user,
-            password: pass.newPassword,
-          };
-
-          await axios.put(`/user/${user.id}`, userData, {
-            "Content-Type": "application/json",
-          });
-
-          setPass({
-            email: "",
-            password: "",
-            newPassword: "",
-          });
-
-          history.push("/login");
-        } else {
-          setAlert({
-            type: "error",
-            msg: ["Incorrect Email or Password"],
-          });
-        }
+        history.push("/login");
+      } else {
+        setAlert({
+          type: "error",
+          msg: ["Incorrect Email or Password"],
+        });
       }
     } catch (err) {
       console.log("Error");
@@ -83,6 +94,8 @@ const Forget = () => {
           className="col s10 offset-s1 m8 offset-m2 "
           onSubmit={(e) => handleSubmit(e)}
         >
+          {authLoading && <Spinner />}
+
           <div className="row center">
             <h3>Reset Password</h3>
           </div>

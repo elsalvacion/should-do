@@ -8,6 +8,7 @@ const Main = () => {
   useEffect(() => {
     document.title = "Should Do - Home";
   }, []);
+
   return (
     <div className="row">
       <div className="col m9 s11 left" id="left">

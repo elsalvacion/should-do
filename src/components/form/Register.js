@@ -2,7 +2,9 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import AuthContext from "../../context/auth/authContext";
 import axios from "axios";
+import CryptoJs from "crypto-js";
 import Alert from "../layout/Alert";
+import Spinner from "../layout/Spinner";
 
 const Register = () => {
   useEffect(() => {
@@ -10,7 +12,8 @@ const Register = () => {
   }, []);
 
   const authContext = useContext(AuthContext);
-  const { registerUser } = authContext;
+  const { registerUser, authLoading } = authContext;
+  const secretKey = "onlyfortesting";
 
   const [register, setRegister] = useState({
     first_name: "",
@@ -46,6 +49,7 @@ const Register = () => {
     e.preventDefault();
     try {
       const res = await axios.get("/user");
+      let pwd = CryptoJs.AES.encrypt(register.password, secretKey).toString();
 
       const available = res.data.filter((user) => {
         if (user.email === register.email) {
@@ -74,9 +78,8 @@ const Register = () => {
             first_name: register.first_name,
             last_name: register.last_name,
             email: register.email,
-            password: register.password,
+            password: pwd,
           };
-          registerUser(data);
           setRegister({
             first_name: "",
             last_name: "",
@@ -85,6 +88,7 @@ const Register = () => {
             password: "",
             confirm_password: "",
           });
+          registerUser(data);
           history.push("/login");
         }
       }
@@ -92,6 +96,7 @@ const Register = () => {
       console.log("Error at Register");
     }
   };
+
   return (
     <div className="row">
       <div className="conatiner">
@@ -99,6 +104,7 @@ const Register = () => {
           className="col col s10 offset-s1 m8 offset-m2 "
           onSubmit={(e) => handleSubmit(e)}
         >
+          {authLoading && <Spinner />}
           <div className="row center">
             <h3>Register</h3>
             <p>

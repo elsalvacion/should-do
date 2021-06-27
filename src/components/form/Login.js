@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, Redirect, withRouter } from "react-router-dom";
 import AuthContext from "../../context/auth/authContext";
 import axios from "axios";
+import CryptoJs from "crypto-js";
+import Spinner from "../layout/Spinner";
 import Alert from "../layout/Alert";
 
 const Login = () => {
@@ -10,7 +12,8 @@ const Login = () => {
   }, []);
 
   const authContext = useContext(AuthContext);
-  const { loginUser, isAuthenticated } = authContext;
+  const { loginUser, isAuthenticated, authLoading } = authContext;
+  const secretKey = "onlyfortesting";
 
   const [login, setLogin] = useState({
     email: "",
@@ -35,18 +38,24 @@ const Login = () => {
 
       const res = await axios.get("/user");
 
+      let pwd = null,
+        data = null;
       const available = res.data.filter((user) => {
-        if (user.email === login.email && user.password === login.password) {
+        pwd = CryptoJs.AES.decrypt(user.password, secretKey).toString(
+          CryptoJs.enc.Utf8
+        );
+        if (user.email === login.email && login.password === pwd) {
           return user;
         } else {
           return null;
         }
       });
-      const data = {
-        email: login.email,
-        password: login.password,
-      };
+
       if (available.length > 0) {
+        data = {
+          email: available[0].email,
+          password: available[0].password,
+        };
         loginUser(data);
         setLogin({
           email: "",
@@ -78,6 +87,7 @@ const Login = () => {
           className="col col s10 offset-s1 m8 offset-m2 "
           onSubmit={(e) => handleSubmit(e)}
         >
+          {authLoading && <Spinner />}
           <div className="row center">
             <h3>Login</h3>
           </div>
@@ -112,7 +122,7 @@ const Login = () => {
               />
               <label htmlFor="password">Password</label>
               <p>
-                <Link to="/forget">Forget Password? </Link>{" "}
+                <Link to="/change-pass">Change Password? </Link>{" "}
               </p>
             </div>
           </div>

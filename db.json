@@ -1,30 +1,21 @@
 {
   "tasks": [
     {
-      "id": "de99ef22-31b1-4b47-b6d1-997adffc2ad8",
-      "task_name": "All in One",
+      "id": "8431b12b-88c5-4c55-9f21-686f5a4ed55e",
+      "task_name": "yiyifu",
       "day": "today",
-      "time": "05:19 AM",
-      "status": "done",
-      "current_date": "2021-06-24T19:19:27.515Z",
+      "time": "02:27 AM",
+      "status": "undone",
+      "current_date": "2021-06-26T18:28:04.116Z",
       "userId": 1
     },
     {
-      "id": "4cb71932-dfb7-4be2-9caf-2c629faa3f11",
-      "time": "03:24 AM",
-      "task_name": "Hahah",
-      "day": "today",
-      "status": "done",
-      "current_date": "2021-06-24T19:24:20.780Z",
-      "userId": 1
-    },
-    {
-      "id": "93e52848-74e1-4d19-88d7-acfbe324347d",
-      "time": "03:34 AM",
-      "task_name": "Ok dude",
+      "id": "2d120e5e-6c0a-427c-827c-31f2206491c2",
+      "time": "02:30 AM",
+      "task_name": "gddggdd",
       "day": "today",
       "status": "undone",
-      "current_date": "2021-06-24T19:34:16.620Z",
+      "current_date": "2021-06-26T18:31:25.806Z",
       "userId": 1
     }
   ],
@@ -82,6 +73,15 @@
       "status": "done",
       "current_date": "2021-06-23T19:07:55.262Z",
       "userId": 1
+    },
+    {
+      "id": "93e52848-74e1-4d19-88d7-acfbe324347d",
+      "time": "03:34 AM",
+      "task_name": "Ok dude",
+      "day": "today",
+      "status": "undone",
+      "current_date": "2021-06-24T19:34:16.620Z",
+      "userId": 1
     }
   ],
   "user": [
@@ -89,15 +89,8 @@
       "first_name": "Alieu",
       "last_name": "Keita",
       "email": "alieukeita201@gmail.com",
-      "password": "12345",
+      "password": "U2FsdGVkX19qGi6PjF+bvyos4BH6ibYquB8eLa90AB0=",
       "id": 1
-    },
-    {
-      "first_name": "Musa",
-      "last_name": "Jawo",
-      "email": "msjawo@gmail.com",
-      "password": "12345",
-      "id": 2
     }
   ]
 }

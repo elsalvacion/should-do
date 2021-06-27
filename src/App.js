@@ -15,7 +15,7 @@ import HomePrivate from "./components/private/HomePrivate";
 function App() {
   useEffect(() => {
     M.AutoInit();
-    M.Modal.init(document.querySelectorAll(".modal"));
+    // M.Modal.init(document.querySelectorAll(".modal"));
   });
 
   return (
@@ -39,7 +39,7 @@ function App() {
             <Route exact path="/register">
               <Register />
             </Route>
-            <Route exact path="/forget">
+            <Route exact path="/change-pass">
               <Forget />
             </Route>
           </Switch>

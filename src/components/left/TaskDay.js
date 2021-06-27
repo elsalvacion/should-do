@@ -9,11 +9,11 @@ const TaskDay = ({ day }) => {
       <a
         onClick={() => setHistory()}
         href="#!"
-        className="btn-floating btn-large waves-effect waves-light teal darken-4 tooltipped"
+        className="btn-floating btn waves-effect waves-light teal darken-4 tooltipped"
         data-position="top"
         data-tooltip="History"
       >
-        <i className="medium material-icons">history</i>
+        <i className=" material-icons">history</i>
       </a>
     </div>
   );
