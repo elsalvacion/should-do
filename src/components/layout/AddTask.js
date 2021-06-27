@@ -4,6 +4,7 @@ import TaskContext from "../../context/task/taskContext";
 import AuthContext from "../../context/auth/authContext";
 import { Redirect } from "react-router-dom";
 import Alert from "./Alert";
+import M from "materialize-css";
 
 const AddTask = () => {
   const taskContext = useContext(TaskContext);
@@ -20,6 +21,11 @@ const AddTask = () => {
       setTask(toEdit);
     }
   }, [taskContext, toEdit]);
+
+  useEffect(() => {
+    M.Timepicker.init(document.querySelectorAll(".timepicker"));
+    M.Modal.init(document.querySelectorAll(".modal"));
+  }, []);
 
   const [alert, setAlert] = useState({
     type: null,

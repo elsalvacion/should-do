@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import "materialize-css/dist/css/materialize.css";
-import M from "materialize-css/dist/js/materialize";
+import M from "materialize-css";
 import "./App.css";
 import Navbar from "./components/layout/Navbar";
 import TaskState from "./context/task/TaskState";
@@ -15,7 +14,6 @@ import HomePrivate from "./components/private/HomePrivate";
 function App() {
   useEffect(() => {
     M.AutoInit();
-    // M.Modal.init(document.querySelectorAll(".modal"));
   });
 
   return (
