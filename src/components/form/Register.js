@@ -5,6 +5,7 @@ import axios from "axios";
 import CryptoJs from "crypto-js";
 import Alert from "../layout/Alert";
 import Spinner from "../layout/Spinner";
+import config from "../../config";
 
 const Register = () => {
   useEffect(() => {
@@ -48,7 +49,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.get("/user");
+      const res = await axios.get(`${config.dbKey}/user`);
       let pwd = CryptoJs.AES.encrypt(register.password, secretKey).toString();
 
       const available = res.data.filter((user) => {

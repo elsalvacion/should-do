@@ -3,7 +3,7 @@ import axios from "axios";
 import CryptoJs from "crypto-js";
 import AuthContext from "./authContext";
 import authReducer from "./authReducer";
-
+import config from "../../config";
 import {
   REGISTER_USER,
   LOGIN_USER,
@@ -27,7 +27,7 @@ const AuthState = (props) => {
     try {
       setLoading();
 
-      await axios.post("/user", data, {
+      await axios.post(`${config.dbKey}/user`, data, {
         "Content-Type": "application/json",
       });
 
@@ -45,7 +45,7 @@ const AuthState = (props) => {
   const loginUser = async (data) => {
     try {
       setLoading();
-      const res = await axios.get("/user");
+      const res = await axios.get(`${config.dbKey}/user`);
 
       const available = res.data.filter((user) => {
         const pwd1 = CryptoJs.AES.decrypt(user.password, secretKey).toString(

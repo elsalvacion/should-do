@@ -5,6 +5,7 @@ import { useHistory, Link } from "react-router-dom";
 import Alert from "../layout/Alert";
 import Spinner from "../layout/Spinner";
 import AuthContext from "../../context/auth/authContext";
+import config from "../../config";
 
 const Forget = () => {
   const authContext = useContext(AuthContext);
@@ -38,7 +39,7 @@ const Forget = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.get("/user");
+      const res = await axios.get(`${config.dbKey}/user`);
 
       let user = res.data.filter((usr) => {
         const pwd = CryptoJs.AES.decrypt(usr.password, secretKey).toString(
@@ -59,7 +60,7 @@ const Forget = () => {
           password: newPwd,
         };
 
-        await axios.put(`/user/${user.id}`, userData, {
+        await axios.put(`${config.dbKey}/user/${user.id}`, userData, {
           "Content-Type": "application/json",
         });
 

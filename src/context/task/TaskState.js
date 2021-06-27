@@ -20,7 +20,7 @@ import {
   GET_HISTORY_TASK,
   // SET_YESTERDAY,
 } from "./types";
-
+import config from "../../config";
 import axios from "axios";
 
 const TaskState = (props) => {
@@ -103,7 +103,7 @@ const TaskState = (props) => {
     try {
       setLoading();
 
-      axios.post(`/tasks/`, data, {
+      axios.post(`${config.dbKey}/tasks/`, data, {
         "Content-Type": "application/json",
       });
 
@@ -122,7 +122,7 @@ const TaskState = (props) => {
     try {
       setLoading();
 
-      await axios.post("/history", task, {
+      await axios.post(`${config.dbKey}/history`, task, {
         "Content-Type": "application/json",
       });
 
@@ -141,7 +141,7 @@ const TaskState = (props) => {
   const deleteTaskSendToHistory = async (id) => {
     try {
       setLoading();
-      await axios.delete(`/tasks/${id}`);
+      await axios.delete(`${config.dbKey}/tasks/${id}`);
     } catch (err) {
       console.log(err);
       action({
@@ -154,7 +154,7 @@ const TaskState = (props) => {
     try {
       setLoading();
 
-      let res = await axios.get("/tasks");
+      let res = await axios.get(`${config.dbKey}/tasks`);
 
       let tasks = res.data;
 
@@ -188,7 +188,7 @@ const TaskState = (props) => {
     try {
       setLoading();
 
-      const res = await axios.get("/history");
+      const res = await axios.get(`${config.dbKey}/history`);
 
       let tasks = res.data;
 
@@ -213,7 +213,7 @@ const TaskState = (props) => {
     try {
       setLoading();
       task.status = status;
-      await axios.put(`/tasks/${task.id}`, task, {
+      await axios.put(`${config.dbKey}/tasks/${task.id}`, task, {
         "Content-type": "application/json",
       });
       action({
@@ -231,7 +231,7 @@ const TaskState = (props) => {
   const deleteTask = async (id) => {
     try {
       setLoading();
-      await axios.delete(`/tasks/${id}`);
+      await axios.delete(`${config.dbKey}/tasks/${id}`);
       action({
         name: DELETE_TASK,
         value: id,
@@ -247,7 +247,7 @@ const TaskState = (props) => {
     try {
       setLoading();
 
-      await axios.put(`/tasks/${task.id}`, task, {
+      await axios.put(`${config.dbKey}/tasks/${task.id}`, task, {
         "Content-Type": "application/json",
       });
       action({

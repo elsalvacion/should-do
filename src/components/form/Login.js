@@ -5,6 +5,7 @@ import axios from "axios";
 import CryptoJs from "crypto-js";
 import Spinner from "../layout/Spinner";
 import Alert from "../layout/Alert";
+import config from "../../config";
 
 const Login = () => {
   useEffect(() => {
@@ -36,7 +37,7 @@ const Login = () => {
     try {
       e.preventDefault();
 
-      const res = await axios.get("/user");
+      const res = await axios.get(`${config.dbKey}/user`);
 
       let pwd = null,
         data = null;
