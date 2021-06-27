@@ -100,7 +100,7 @@ const LeftTasks = () => {
 
   return (
     <div className="tasks">
-      {historyTask.length > 0 && <TaskDay day={checkDay()} />}
+      <TaskDay historyTasks={historyTask} day={checkDay()} />
       <ul className="collapsible popout">
         {uncompleted.length > 0 && (
           <li className="active">
