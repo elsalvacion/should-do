@@ -203,11 +203,7 @@ const Register = () => {
           {/* SUBMIT */}
           <div className="row">
             <div className="input-field col s12">
-              <button
-                className="btn waves-effect waves-light teal darken-4"
-                type="submit"
-                name="action"
-              >
+              <button className="btn teal darken-4" type="submit" name="action">
                 Register
                 <i className="material-icons right">send</i>
               </button>

@@ -129,7 +129,7 @@ const Login = () => {
           <div className="row">
             <div className="input-field col s12">
               <button
-                className="btn waves-effect waves-light teal darken-4"
+                className="btn  teal darken-4"
                 type="submit"
                 name="action"
               >

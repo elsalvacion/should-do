@@ -1,8 +1,13 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import TaskContext from "../../context/task/taskContext";
+import M from "materialize-css/dist/js/materialize.min";
+
 const TaskDay = ({ day, historyTasks }) => {
   const taskContext = useContext(TaskContext);
   const { setHistory } = taskContext;
+  useEffect(() => {
+    M.Tooltip.init(document.querySelectorAll(".tooltipped"));
+  });
   return (
     <div className="task-head">
       <h4 className="heading">{day}</h4>
@@ -10,7 +15,7 @@ const TaskDay = ({ day, historyTasks }) => {
         <a
           onClick={() => setHistory()}
           href="#!"
-          className="btn-floating btn waves-effect waves-light teal darken-4 tooltipped"
+          className="btn-floating btn teal darken-4 tooltipped"
           data-position="top"
           data-tooltip="History"
         >

@@ -121,7 +121,7 @@ const AddTask = () => {
       <div className="fixed-action-btn">
         <a
           href="#!"
-          className="btn-floating btn-large waves-effect waves-light teal darken-4 tooltipped modal-trigger"
+          className="btn-floating btn-large teal darken-4 tooltipped modal-trigger"
           data-target="add-task"
           data-position="top"
           data-tooltip="Create Task"
@@ -146,7 +146,7 @@ const AddTask = () => {
                 <a
                   href="#!"
                   type="submit"
-                  className={`waves-effect waves-green btn-flat teal darken-4 white-text modal-submit `}
+                  className={` btn-flat teal darken-4 white-text modal-submit `}
                   onClick={toEdit ? changeTask : addTask}
                 >
                   {toEdit ? "Update" : "Add"}
@@ -158,7 +158,7 @@ const AddTask = () => {
         <div className="modal-footer">
           <a
             href="#!"
-            className="modal-close red waves-effect waves-green btn-flat white-text modal-btn"
+            className="modal-close red  btn-flat white-text modal-btn"
             onClick={(e) => clearAll()}
           >
             Close

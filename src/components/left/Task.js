@@ -6,6 +6,7 @@ const Task = (props) => {
     M.Collapsible.init(document.querySelectorAll(".collapsible"), {
       accordion: true,
     });
+    M.Tooltip.init(document.querySelectorAll(".tooltipped"));
   });
   const { task, changeToDone, delTask, taskEdit, history } = props;
   const { status, task_name, id, time, current_date } = task;
