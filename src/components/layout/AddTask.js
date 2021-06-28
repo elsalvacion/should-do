@@ -137,7 +137,7 @@ const AddTask = () => {
               className="right modal-close"
               onClick={(e) => clearAll()}
             >
-              <i className=" close large grey lighten-4 red-text material-icons">
+              <i className=" close  grey lighten-4 red-text material-icons">
                 close
               </i>
             </a>

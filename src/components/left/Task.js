@@ -49,52 +49,52 @@ const Task = (props) => {
             : time}{" "}
         </b>
         {task_name}
-        <div className="secondary-content">
-          {!history && (
-            <Fragment>
-              {status === "done" ? (
-                <a
-                  href="#!"
-                  className="tooltipped manip-task"
-                  data-position="top"
-                  data-tooltip="Undone"
-                  onClick={() => changeToDone(task, "undone")}
-                >
-                  <i className="material-icons red-text">clear</i>
-                </a>
-              ) : (
-                <a
-                  href="#!"
-                  className="tooltipped manip-task"
-                  data-position="left"
-                  data-tooltip="Done"
-                  onClick={() => changeToDone(task, "done")}
-                >
-                  <i className="material-icons green-text">check</i>
-                </a>
-              )}
-              <a
-                href="#!"
-                className="tooltipped manip-task modal-trigger"
-                data-position="top"
-                data-tooltip="Edit"
-                data-target="add-task"
-                onClick={() => taskEdit(task)}
-              >
-                <i className="material-icons grey-text">edit</i>
-              </a>
+      </div>
+      <div>
+        {!history && (
+          <Fragment>
+            {status === "done" ? (
               <a
                 href="#!"
                 className="tooltipped manip-task"
-                data-position="right"
-                data-tooltip="Delete"
-                onClick={() => delTask(id)}
+                data-position="top"
+                data-tooltip="Undone"
+                onClick={() => changeToDone(task, "undone")}
               >
-                <i className="material-icons red-text">delete</i>
+                <i className="material-icons red-text">clear</i>
               </a>
-            </Fragment>
-          )}
-        </div>
+            ) : (
+              <a
+                href="#!"
+                className="tooltipped manip-task"
+                data-position="left"
+                data-tooltip="Done"
+                onClick={() => changeToDone(task, "done")}
+              >
+                <i className="material-icons green-text">check</i>
+              </a>
+            )}
+            <a
+              href="#!"
+              className="tooltipped manip-task modal-trigger"
+              data-position="top"
+              data-tooltip="Edit"
+              data-target="add-task"
+              onClick={() => taskEdit(task)}
+            >
+              <i className="material-icons grey-text">edit</i>
+            </a>
+            <a
+              href="#!"
+              className="tooltipped manip-task"
+              data-position="right"
+              data-tooltip="Delete"
+              onClick={() => delTask(id)}
+            >
+              <i className="material-icons red-text">delete</i>
+            </a>
+          </Fragment>
+        )}
       </div>
     </div>
   );

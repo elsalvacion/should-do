@@ -11,7 +11,7 @@ const Main = () => {
 
   return (
     <div className="row">
-      <div className="col m9 s11 left" id="left">
+      <div className="col m9 s12 left" id="left">
         <div className="container">
           <LeftTop />
           <Indicators />

@@ -64,29 +64,29 @@ blockquote {
   display: block;
   margin: auto;
 }
-
-.manip-task {
-  margin: 0 5px;
-}
-
-label {
-  font: 18px !important;
-  color: black !important;
-}
 .close {
   font-size: 24px !important;
 }
 
 .modal-content {
-  padding: 10px !important;
+  padding: 5px !important;
 }
+.manip-task {
+  margin: 0 5px;
+}
+
+label {
+  font: 18px;
+  color: black;
+}
+
 .modal-submit {
   display: block;
   width: 100%;
-  margin: 10px auto;
+  margin: 20px auto;
   text-align: center;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 22px;
 }
 
 .task-head {
@@ -94,9 +94,20 @@ label {
   justify-content: space-around;
   align-items: center;
 }
+
+.days {
+  display: flex;
+  justify-content: center !important;
+  align-items: center !important;
+}
+.days button {
+  margin: 5px !important;
+}
 .collection-item {
   background: #f5f5f5 !important;
-  margin: 15px 0 !important;
+  margin: 10px 0 !important;
+  display: flex !important;
+  justify-content: space-between;
 }
 
 .done {
@@ -164,20 +175,20 @@ label {
   background: #f44336 !important;
 }
 
-@media (max-width: 500px) {
-  .collection-item b,
-  i,
-  a {
-    font-size: 14px !important;
-  }
-
-  .collection-item {
-    margin: 5px !important;
+@media (max-width: 480px) {
+  .modal {
+    width: 100% !important ;
+    height: 100% !important ;
   }
   .collection {
-    padding: 2px !important;
+    padding: 0 !important;
+  }
+  .collection-item {
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
   }
   .collapsible-body {
-    padding: 2px !important;
+    padding: 5px !important;
   }
 }

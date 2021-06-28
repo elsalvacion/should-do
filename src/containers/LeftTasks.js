@@ -18,6 +18,8 @@ const LeftTasks = () => {
     setToEdit,
     getTasks,
     getHistoryTask,
+    setToday,
+    setTomorrow,
   } = taskContext;
 
   useEffect(() => {
@@ -98,7 +100,22 @@ const LeftTasks = () => {
 
   return (
     <div className="tasks">
+      <div className="days hide-on-med-and-up ">
+        <button
+          onClick={() => setToday()}
+          className="btn teal darken-4 white-text "
+        >
+          Today
+        </button>
+        <button
+          onClick={() => setTomorrow()}
+          className="btn teal darken-4 white-text"
+        >
+          Tomorrow
+        </button>
+      </div>
       <TaskDay historyTasks={historyTask} day={checkDay()} />
+
       <ul className="collapsible popout">
         {uncompleted.length > 0 && (
           <li className="active">
