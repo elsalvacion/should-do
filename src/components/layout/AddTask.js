@@ -1,15 +1,12 @@
 import React, { Fragment, useState, useContext, useEffect } from "react";
 import AddTaskForm from "../form/AddTaskForm";
 import TaskContext from "../../context/task/taskContext";
-import AuthContext from "../../context/auth/authContext";
-import { Redirect } from "react-router-dom";
 import Alert from "./Alert";
 import M from "materialize-css";
 
 const AddTask = () => {
   const taskContext = useContext(TaskContext);
   const { createTask, toEdit, editTask, clearEdit } = taskContext;
-  const { user } = useContext(AuthContext);
   const [task, setTask] = useState({
     task_name: "",
     day: "today",
@@ -42,35 +39,29 @@ const AddTask = () => {
     e.preventDefault();
 
     try {
+      const user = JSON.parse(sessionStorage.getItem("user"));
+
       if (task.task_name === "" || task.time === "") {
         setAlert({
           type: "error",
           msg: ["All fields are required"],
         });
       } else {
-        if (user) {
-          const data = {
-            ...task,
-            status: "undone",
-            current_date: new Date(),
-            userId: user.id,
-          };
+        const data = {
+          ...task,
+          status: "undone",
+          current_date: new Date(),
+          userId: user.id,
+        };
 
-          createTask(data);
+        createTask(data);
 
-          setAlert({
-            type: "success",
-            msg: ["Successfully added"],
-          });
-        } else {
-          <Redirect to="/login" />;
-        }
+        setAlert({
+          type: "success",
+          msg: ["Successfully added"],
+        });
+        resetTasks();
       }
-      setTask({
-        time: "",
-        task_name: "",
-        day: "today",
-      });
     } catch (err) {
       console.log("Error at add task");
     }
@@ -88,8 +79,10 @@ const AddTask = () => {
 
         setAlert({
           type: "success",
-          msg: ["Successfully added"],
+          msg: ["Edited successfully"],
         });
+        clearEdit();
+        resetTasks();
       }
     } catch (err) {
       console.log("Error");
@@ -101,12 +94,15 @@ const AddTask = () => {
     resetStates();
   };
 
-  const resetStates = () => {
+  const resetTasks = () => {
     setTask({
       time: "",
       task_name: "",
       day: "today",
     });
+  };
+  const resetStates = () => {
+    resetTasks();
     setAlert({
       type: "",
       msg: [],

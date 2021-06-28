@@ -1,2 +1,52 @@
 If a tasks is not completed and not deleted it will appear in  the next weeks to-do
 Or maybe if pssible why not we notify the user at met night through email and allow them to either carry it over or just leave it as it is.
+
+
+// Credit to Stackoverflow
+  // const get24HrsFrmAMPM = (timeStr) => {
+  //   if (timeStr && timeStr.indexOf(" ") !== -1 && timeStr.indexOf(":") !== -1) {
+  //     var hrs = 0;
+  //     var tempAry = timeStr.split(" ");
+  //     var hrsMinAry = tempAry[0].split(":");
+  //     hrs = parseInt(hrsMinAry[0], 10);
+  //     if ((tempAry[1] === "AM" || tempAry[1] === "am") && hrs === 12) {
+  //       hrs = 0;
+  //     } else if ((tempAry[1] === "PM" || tempAry[1] === "pm") && hrs !== 12) {
+  //       hrs += 12;
+  //     }
+  //     return (
+  //       ("0" + hrs).slice(-2) +
+  //       ":" +
+  //       ("0" + parseInt(hrsMinAry[1], 10)).slice(-2)
+  //     );
+  //   } else {
+  //     return null;
+  //   }
+  // };
+
+  // const calcElapsed = (time) => {
+  //   const hrs = new Date().getHours();
+
+  //   const mins = new Date().getMinutes();
+
+  //   const timeStr = get24HrsFrmAMPM(time);
+
+  //   const timeSplit = timeStr.split(":");
+
+  //   if (Number(hrs) > Number(timeSplit[0])) {
+  //     return "elapsed";
+  //   } else {
+  //     if (
+  //       Number(hrs) === Number(timeSplit[0]) &&
+  //       Number(mins) > Number(timeSplit[1])
+  //     ) {
+  //       // console.log("Time has elapsed");
+  //       return "elapsed";
+  //     } else {
+  //       // console.log("Time didnt elapsed");
+  //       return false;
+  //     }
+  //   }
+  // };
+
+  // Idea inspired by stackoverflow

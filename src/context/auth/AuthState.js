@@ -62,6 +62,7 @@ const AuthState = (props) => {
       });
 
       if (available) {
+        sessionStorage.setItem("user", JSON.stringify(available[0]));
         action({
           name: LOGIN_USER,
           value: available[0],
@@ -80,6 +81,7 @@ const AuthState = (props) => {
   };
 
   const logoutUser = () => {
+    sessionStorage.removeItem("user");
     action({
       name: LOGOUT_USER,
     });
@@ -90,6 +92,7 @@ const AuthState = (props) => {
       name: SET_LOADING,
     });
   };
+
   return (
     <AuthContext.Provider
       value={{

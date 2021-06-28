@@ -34,11 +34,6 @@ const Navbar = () => {
                       About
                     </NavLink>
                   </li>
-                  <li>
-                    <NavLink to="/help" className="nav-link center">
-                      Help
-                    </NavLink>
-                  </li>
 
                   <li>
                     <NavLink
@@ -57,11 +52,7 @@ const Navbar = () => {
                       About
                     </NavLink>
                   </li>
-                  <li>
-                    <NavLink to="/help" className="nav-link center">
-                      Help
-                    </NavLink>
-                  </li>
+
                   <li>
                     <NavLink to="/login" className="nav-link center">
                       Login
@@ -110,11 +101,7 @@ const Navbar = () => {
                 About
               </NavLink>
             </li>
-            <li>
-              <NavLink to="/help" className="nav-link center white-text">
-                Help
-              </NavLink>
-            </li>
+
             <li>
               <NavLink
                 onClick={(e) => logoutUser()}
@@ -132,11 +119,7 @@ const Navbar = () => {
                 About
               </NavLink>
             </li>
-            <li>
-              <NavLink to="/help" className="nav-link center white-text">
-                Help
-              </NavLink>
-            </li>
+
             <li>
               <NavLink to="/login" className="nav-link center white-text">
                 Login

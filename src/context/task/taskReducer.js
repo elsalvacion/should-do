@@ -11,7 +11,6 @@ import {
   EDIT_TASK,
   SET_FILTER,
   CLEAR_FILTER,
-  SET_TASK,
   SET_HISTORY,
   SET_HISTORY_TASK,
   GET_HISTORY_TASK,
@@ -20,14 +19,6 @@ import {
 
 const taskReducer = (state, action) => {
   switch (action.name) {
-    case SET_TASK:
-      return {
-        ...state,
-        allTasks: [...state.allTasks, action.value],
-        loading: false,
-        errors: false,
-      };
-
     case GET_TASK:
       return {
         ...state,

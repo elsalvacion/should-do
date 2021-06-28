@@ -10,7 +10,6 @@ import {
   SET_EDIT,
   DELETE_TASK,
   GET_TASK,
-  SET_TASK,
   CHANGE_STATUS,
   EDIT_TASK,
   CLEAR_EDIT,
@@ -18,7 +17,6 @@ import {
   CLEAR_FILTER,
   SET_HISTORY_TASK,
   GET_HISTORY_TASK,
-  // SET_YESTERDAY,
 } from "./types";
 import config from "../../config";
 import axios from "axios";
@@ -39,55 +37,6 @@ const TaskState = (props) => {
 
   const [state, action] = useReducer(taskReducer, initState);
 
-  // Credit to Stackoverflow
-  // const get24HrsFrmAMPM = (timeStr) => {
-  //   if (timeStr && timeStr.indexOf(" ") !== -1 && timeStr.indexOf(":") !== -1) {
-  //     var hrs = 0;
-  //     var tempAry = timeStr.split(" ");
-  //     var hrsMinAry = tempAry[0].split(":");
-  //     hrs = parseInt(hrsMinAry[0], 10);
-  //     if ((tempAry[1] === "AM" || tempAry[1] === "am") && hrs === 12) {
-  //       hrs = 0;
-  //     } else if ((tempAry[1] === "PM" || tempAry[1] === "pm") && hrs !== 12) {
-  //       hrs += 12;
-  //     }
-  //     return (
-  //       ("0" + hrs).slice(-2) +
-  //       ":" +
-  //       ("0" + parseInt(hrsMinAry[1], 10)).slice(-2)
-  //     );
-  //   } else {
-  //     return null;
-  //   }
-  // };
-
-  // const calcElapsed = (time) => {
-  //   const hrs = new Date().getHours();
-
-  //   const mins = new Date().getMinutes();
-
-  //   const timeStr = get24HrsFrmAMPM(time);
-
-  //   const timeSplit = timeStr.split(":");
-
-  //   if (Number(hrs) > Number(timeSplit[0])) {
-  //     return "elapsed";
-  //   } else {
-  //     if (
-  //       Number(hrs) === Number(timeSplit[0]) &&
-  //       Number(mins) > Number(timeSplit[1])
-  //     ) {
-  //       // console.log("Time has elapsed");
-  //       return "elapsed";
-  //     } else {
-  //       // console.log("Time didnt elapsed");
-  //       return false;
-  //     }
-  //   }
-  // };
-
-  // Idea inspired by stackoverflow
-
   const compareDate = (date) => {
     const d1 = new Date();
     const d2 = new Date(date);
@@ -103,14 +52,11 @@ const TaskState = (props) => {
     try {
       setLoading();
 
-      axios.post(`${config.dbKey}/tasks/`, data, {
+      await axios.post(`${config.dbKey}/tasks/`, data, {
         "Content-Type": "application/json",
       });
 
-      action({
-        name: SET_TASK,
-        value: data,
-      });
+      getTasks();
     } catch (err) {
       action({
         name: SET_ERRORS,
@@ -150,9 +96,11 @@ const TaskState = (props) => {
     }
   };
 
-  const getTasks = async (user) => {
+  const getTasks = async () => {
     try {
       setLoading();
+
+      const user = JSON.parse(sessionStorage.getItem("user"));
 
       let res = await axios.get(`${config.dbKey}/tasks`);
 
@@ -184,11 +132,13 @@ const TaskState = (props) => {
     }
   };
 
-  const getHistoryTask = async (user) => {
+  const getHistoryTask = async () => {
     try {
       setLoading();
 
       const res = await axios.get(`${config.dbKey}/history`);
+
+      const user = JSON.parse(sessionStorage.getItem("user"));
 
       let tasks = res.data;
 

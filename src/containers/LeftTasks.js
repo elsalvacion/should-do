@@ -3,10 +3,8 @@ import Spinner from "../components/layout/Spinner";
 import Task from "../components/left/Task";
 import TaskDay from "../components/left/TaskDay";
 import TaskContext from "../context/task/taskContext";
-import authContext from "../context/auth/authContext";
 const LeftTasks = () => {
   const taskContext = useContext(TaskContext);
-  const { user } = useContext(authContext);
   const {
     today,
     tomorrow,
@@ -23,8 +21,8 @@ const LeftTasks = () => {
   } = taskContext;
 
   useEffect(() => {
-    getTasks(user);
-    getHistoryTask(user);
+    getTasks();
+    getHistoryTask();
     // eslint-disable-next-line
   }, []);
 
@@ -131,16 +129,18 @@ const LeftTasks = () => {
             </div>
             <div className="collapsible-body">
               <div className="collection">
-                {completed.map((task) => (
-                  <Task
-                    key={task.id}
-                    task={task}
-                    history={history}
-                    changeToDone={changeStatus}
-                    delTask={deleteTask}
-                    taskEdit={setToEdit}
-                  />
-                ))}
+                {completed.map((task) => {
+                  return (
+                    <Task
+                      key={task.id}
+                      task={task}
+                      history={history}
+                      changeToDone={changeStatus}
+                      delTask={deleteTask}
+                      taskEdit={setToEdit}
+                    />
+                  );
+                })}
               </div>
             </div>
           </li>

@@ -6,7 +6,6 @@ import Navbar from "./components/layout/Navbar";
 import TaskState from "./context/task/TaskState";
 import AuthState from "./context/auth/AuthState";
 import About from "./components/layout/About";
-import Help from "./components/layout/Help";
 import Login from "./components/form/Login";
 import Register from "./components/form/Register";
 import Forget from "./components/form/Forget";
@@ -27,9 +26,6 @@ function App() {
             </Route>
             <Route exact path="/about">
               <About />
-            </Route>
-            <Route exact path="/help">
-              <Help />
             </Route>
             <Route exact path="/login">
               <Login />
