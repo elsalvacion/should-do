@@ -65,7 +65,7 @@ const Task = (props) => {
                 href="#!"
                 className="tooltipped manip-task"
                 data-position="top"
-                data-tooltip="Cancel"
+                data-tooltip="Undone"
                 onClick={() => changeToDone(task, "undone")}
               >
                 <i className="material-icons red-text">clear</i>
