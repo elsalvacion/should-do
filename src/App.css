@@ -64,33 +64,29 @@ blockquote {
   display: block;
   margin: auto;
 }
-.modal {
-  height: 95vh !important;
-  width: 90vh !important;
-  margin: auto !important;
-}
-.modal-content {
-  padding: 20px !important;
-}
+
 .manip-task {
   margin: 0 5px;
 }
 
 label {
-  font: 18px;
-  color: black;
+  font: 18px !important;
+  color: black !important;
 }
-.modal {
-  width: 75% !important ;
-  height: 95% !important ;
+.close {
+  font-size: 24px !important;
+}
+
+.modal-content {
+  padding: 10px !important;
 }
 .modal-submit {
   display: block;
   width: 100%;
-  margin: 20px auto;
+  margin: 10px auto;
   text-align: center;
   font-weight: bold;
-  font-size: 22px;
+  font-size: 18px;
 }
 
 .task-head {
@@ -168,9 +164,20 @@ label {
   background: #f44336 !important;
 }
 
-@media (max-width: 768px) {
-  .modal {
-    width: 95% !important ;
-    height: 95% !important ;
+@media (max-width: 500px) {
+  .collection-item b,
+  i,
+  a {
+    font-size: 14px !important;
+  }
+
+  .collection-item {
+    margin: 5px !important;
+  }
+  .collection {
+    padding: 2px !important;
+  }
+  .collapsible-body {
+    padding: 2px !important;
   }
 }

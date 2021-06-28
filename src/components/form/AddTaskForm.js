@@ -6,19 +6,21 @@ const AddTaskForm = (props) => {
   const { task_name, day, time } = task;
   useEffect(() => {
     M.FormSelect.init(document.querySelectorAll("select"));
-    document.querySelector("#task_name").focus();
   });
   return (
     <Fragment>
-      <div className="input-field col s12">
-        <label htmlFor="task_name" className="dark-text">
+      <div className="col s12">
+        <label className="dark-text">
           Summarize Task (Max-Length: 25 Characters)
         </label>
+      </div>
+      <div className="input-field col s12">
         <input
           id="task_name"
           name="task_name"
           value={task_name}
           onChange={(e) => handleChange(e)}
+          placeholder="Max-Length: 25 Characters"
           required
           type="text"
           maxLength="25"

@@ -131,7 +131,17 @@ const AddTask = () => {
       </div>
       <div id="add-task" className="modal">
         <div className="modal-content">
-          <h4 className="center">Add a To-DO</h4>
+          <div className="row">
+            <a
+              href="#!"
+              className="right modal-close"
+              onClick={(e) => clearAll()}
+            >
+              <i className=" close large grey lighten-4 red-text material-icons">
+                close
+              </i>
+            </a>
+          </div>
           <div className="row">
             <form onSubmit={(e) => addTask(e)}>
               {alert.msg.length > 0 && (
@@ -154,15 +164,6 @@ const AddTask = () => {
               </div>
             </form>
           </div>
-        </div>
-        <div className="modal-footer">
-          <a
-            href="#!"
-            className="modal-close red  btn-flat white-text modal-btn"
-            onClick={(e) => clearAll()}
-          >
-            Close
-          </a>
         </div>
       </div>
     </Fragment>
