@@ -61,25 +61,29 @@ const Task = (props) => {
               >
                 <i className="material-icons green-text">check</i>
               </a>
-              <a
-                href="#!"
-                className="tooltipped manip-task"
-                data-position="top"
-                data-tooltip="Undone"
-                onClick={() => changeToDone(task, "undone")}
-              >
-                <i className="material-icons red-text">clear</i>
-              </a>
-              <a
-                href="#!"
-                className="tooltipped manip-task modal-trigger"
-                data-position="top"
-                data-tooltip="Edit"
-                data-target="add-task"
-                onClick={() => taskEdit(task)}
-              >
-                <i className="material-icons grey-text">edit</i>
-              </a>
+              {status === "done" ? (
+                <a
+                  href="#!"
+                  className="tooltipped manip-task"
+                  data-position="top"
+                  data-tooltip="Undone"
+                  onClick={() => changeToDone(task, "undone")}
+                >
+                  <i className="material-icons red-text">clear</i>
+                </a>
+              ) : (
+                <a
+                  href="#!"
+                  className="tooltipped manip-task modal-trigger"
+                  data-position="top"
+                  data-tooltip="Edit"
+                  data-target="add-task"
+                  onClick={() => taskEdit(task)}
+                >
+                  <i className="material-icons grey-text">edit</i>
+                </a>
+              )}
+
               <a
                 href="#!"
                 className="tooltipped manip-task"
