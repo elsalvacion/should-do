@@ -52,15 +52,6 @@ const Task = (props) => {
         <div className="secondary-content">
           {!history && (
             <Fragment>
-              <a
-                href="#!"
-                className="tooltipped manip-task"
-                data-position="left"
-                data-tooltip="Done"
-                onClick={() => changeToDone(task, "done")}
-              >
-                <i className="material-icons green-text">check</i>
-              </a>
               {status === "done" ? (
                 <a
                   href="#!"
@@ -74,16 +65,24 @@ const Task = (props) => {
               ) : (
                 <a
                   href="#!"
-                  className="tooltipped manip-task modal-trigger"
-                  data-position="top"
-                  data-tooltip="Edit"
-                  data-target="add-task"
-                  onClick={() => taskEdit(task)}
+                  className="tooltipped manip-task"
+                  data-position="left"
+                  data-tooltip="Done"
+                  onClick={() => changeToDone(task, "done")}
                 >
-                  <i className="material-icons grey-text">edit</i>
+                  <i className="material-icons green-text">check</i>
                 </a>
               )}
-
+              <a
+                href="#!"
+                className="tooltipped manip-task modal-trigger"
+                data-position="top"
+                data-tooltip="Edit"
+                data-target="add-task"
+                onClick={() => taskEdit(task)}
+              >
+                <i className="material-icons grey-text">edit</i>
+              </a>
               <a
                 href="#!"
                 className="tooltipped manip-task"
