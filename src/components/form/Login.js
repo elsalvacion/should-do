@@ -122,9 +122,6 @@ const Login = () => {
                 required
               />
               <label htmlFor="password">Password</label>
-              <p>
-                <Link to="/change-pass">Change Password? </Link>{" "}
-              </p>
             </div>
           </div>
 

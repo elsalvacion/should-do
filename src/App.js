@@ -8,7 +8,6 @@ import AuthState from "./context/auth/AuthState";
 import About from "./components/layout/About";
 import Login from "./components/form/Login";
 import Register from "./components/form/Register";
-import Forget from "./components/form/Forget";
 import HomePrivate from "./components/private/HomePrivate";
 function App() {
   useEffect(() => {
@@ -32,9 +31,6 @@ function App() {
             </Route>
             <Route exact path="/register">
               <Register />
-            </Route>
-            <Route exact path="/change-pass">
-              <Forget />
             </Route>
           </Switch>
         </TaskState>
