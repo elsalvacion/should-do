@@ -35,7 +35,6 @@ const LeftTasks = () => {
   const fetchData = () => {
     if (filtered) {
       todayTask = filtered;
-      console.log("Filtered at left task: ", filtered);
     } else if (history) {
       todayTask = historyTask;
     } else {
@@ -86,6 +85,20 @@ const LeftTasks = () => {
   ) {
     return (
       <Fragment>
+        <div className="days hide-on-med-and-up ">
+          <button
+            onClick={() => setToday()}
+            className="btn teal darken-4 white-text "
+          >
+            Today
+          </button>
+          <button
+            onClick={() => setTomorrow()}
+            className="btn teal darken-4 white-text"
+          >
+            Tomorrow
+          </button>
+        </div>
         <h4 className="center">No Entry.</h4>
         <p className="center">You can add by clicking on the + icons</p>
       </Fragment>
@@ -126,7 +139,7 @@ const LeftTasks = () => {
               <div className="collection">
                 {uncompleted.map((task) => (
                   <Task
-                    key={task.id}
+                    key={task._id}
                     task={task}
                     history={history}
                     changeToDone={changeStatus}
@@ -149,7 +162,7 @@ const LeftTasks = () => {
                 {completed.map((task) => {
                   return (
                     <Task
-                      key={task.id}
+                      key={task._id}
                       task={task}
                       history={history}
                       changeToDone={changeStatus}

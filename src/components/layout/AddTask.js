@@ -50,8 +50,7 @@ const AddTask = () => {
         const data = {
           ...task,
           status: "undone",
-          current_date: new Date(),
-          userId: user.id,
+          userId: user._id,
         };
 
         createTask(data);

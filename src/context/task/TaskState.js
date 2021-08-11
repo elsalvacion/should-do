@@ -107,14 +107,14 @@ const TaskState = (props) => {
       let tasks = res.data;
 
       const getOnlyMyTask = tasks.filter((task) => {
-        if (user.id === task.userId) return task;
+        if (user._id === task.userId) return task;
         else return null;
       });
 
       const historyRemoved = getOnlyMyTask.filter((task) => {
         if (compareDate(task.current_date)) {
           setHistoryTask(task);
-          deleteTaskSendToHistory(task.id);
+          deleteTaskSendToHistory(task._id);
           return null;
         } else {
           return task;
@@ -143,7 +143,7 @@ const TaskState = (props) => {
       let tasks = res.data;
 
       const getOnlyHisHistory = tasks.filter((task) => {
-        if (user.id === task.userId) return task;
+        if (user._id === task.userId) return task;
         else return null;
       });
 
@@ -163,7 +163,7 @@ const TaskState = (props) => {
     try {
       setLoading();
       task.status = status;
-      await axios.put(`${config.dbKey}/tasks/${task.id}`, task, {
+      await axios.put(`${config.dbKey}/tasks/${task._id}`, task, {
         "Content-type": "application/json",
       });
       action({
@@ -197,7 +197,7 @@ const TaskState = (props) => {
     try {
       setLoading();
 
-      await axios.put(`${config.dbKey}/tasks/${task.id}`, task, {
+      await axios.put(`${config.dbKey}/tasks/${task._id}`, task, {
         "Content-Type": "application/json",
       });
       action({

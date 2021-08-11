@@ -8,7 +8,7 @@ const HomePrivate = ({ ...rest }) => {
   const user = JSON.parse(sessionStorage.getItem("user"));
 
   useEffect(() => {
-    loginUser(user);
+    user && loginUser(user);
 
     //eslint-disable-next-line
   }, []);

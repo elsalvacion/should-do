@@ -31,7 +31,7 @@ const taskReducer = (state, action) => {
       return {
         ...state,
         allTasks: state.allTasks.map((task) =>
-          task.id === action.value.id ? action.value : task
+          task._id === action.value._id ? action.value : task
         ),
         loading: false,
         errors: false,
@@ -40,7 +40,7 @@ const taskReducer = (state, action) => {
       return {
         ...state,
         allTasks: state.allTasks.filter((task) =>
-          task.id === action.value ? null : task
+          task._id === action.value ? null : task
         ),
         loading: false,
         errors: false,
@@ -63,7 +63,7 @@ const taskReducer = (state, action) => {
       return {
         ...state,
         allTasks: state.allTasks.map((task) =>
-          task.id === action.value.id ? action.value : task
+          task._id === action.value._id ? action.value : task
         ),
         loading: false,
         errors: false,

@@ -9,7 +9,7 @@ const Task = (props) => {
     M.Tooltip.init(document.querySelectorAll(".tooltipped"));
   });
   const { task, changeToDone, delTask, taskEdit, history } = props;
-  const { status, task_name, id, time, current_date } = task;
+  const { status, task_name, _id, time, current_date } = task;
   const months = [
     "January",
     "February",
@@ -89,7 +89,7 @@ const Task = (props) => {
               className="tooltipped manip-task"
               data-position="right"
               data-tooltip="Delete"
-              onClick={() => delTask(id)}
+              onClick={() => delTask(_id)}
             >
               <i className="material-icons red-text">delete</i>
             </a>

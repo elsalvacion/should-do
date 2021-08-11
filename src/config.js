@@ -1,4 +1,4 @@
 // eslint-disable-next-line
 export default {
-  dbKey: "https://should-do-db.herokuapp.com",
+  dbKey: "https://should-db-updated.herokuapp.com",
 };
